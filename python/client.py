@@ -3,7 +3,7 @@ import optparse
 import gameinfo
 import command
 import communication
-
+import player
 
 class Client(object):
     """
