@@ -5,6 +5,7 @@ import command
 import communication
 import player
 
+
 class Client(object):
     """
     The main client class. Responsible for running the game.
@@ -88,4 +89,5 @@ if __name__ == "__main__":
     except Exception as e:
         if len(e.args) > 0 and e.args[0] == 'game ended':
             client.run()
-        else raise
+        else:
+            raise
