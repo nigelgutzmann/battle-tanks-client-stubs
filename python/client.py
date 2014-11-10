@@ -87,4 +87,4 @@ if __name__ == "__main__":
         client.exit()
     except Exception as e:
         if len(e.args) > 0 and e.args[0] == 'game ended':
-        client.run()
+            client.run()
