@@ -60,7 +60,7 @@ class GameState(object):
         for y in range(y_len):
             print
             for x in range(x_len):
-                print "  " + str(self.__map[x][y]) + "  "
+                print "  " + str(self.__map[x][y]) + "  ",
 
         print
         print

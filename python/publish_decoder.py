@@ -41,7 +41,7 @@ class PublishDecoder(object):
             our_team = {}
             other_team = {}
             for player in players:
-                if player['name'] == game_info.team_name:
+                if player['name'] == self.game_info.team_name:
                     # this is us!
                     our_team = player
                 else:
