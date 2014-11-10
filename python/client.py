@@ -67,7 +67,7 @@ class Client(object):
 
         print 'Received client token... %s' % self.game_info.client_token
         print 'Starting game...'
-        
+
         self.player.play_game()
 
         print 'Exiting...'
@@ -88,3 +88,4 @@ if __name__ == "__main__":
     except Exception as e:
         if len(e.args) > 0 and e.args[0] == 'game ended':
             client.run()
+        else raise
