@@ -24,9 +24,7 @@ class Client(object):
         (opts, args) = parser.parse_args()
 
         if opts.team_name is None or 0 == len(opts.team_name):
-            print "team name is mandatory"
-            parser.print_help()
-            exit(1)
+            opts.team_name = 'ThinkTank2.0'
 
         if opts.match_token is None or 0 == len(opts.match_token):
             print "match token is mandatory"
@@ -34,9 +32,7 @@ class Client(object):
             exit(1)
 
         if opts.team_password is None or 0 == len(opts.team_password):
-            print "team password is mandatory"
-            parser.print_help()
-            exit(1)
+            opts.team_password = 'th1nk'
 
         if opts.host_name is None or 0 == len(opts.host_name):
             print "host name is mandatory"
