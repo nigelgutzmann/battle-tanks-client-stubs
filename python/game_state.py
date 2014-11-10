@@ -68,10 +68,10 @@ class GameState(object):
     def reset(self):
         self.__map = []
 
-    def set_enemy_position(slow_tank=None, fast_tank=None):
+    def set_enemy_position(self, slow_tank=None, fast_tank=None):
         self.__enemy_fast = fast_tank
         self.__enemy_slow = slow_tank
 
-    def set_my_position(slow_tank=None, fast_tank=None):
+    def set_my_position(self, slow_tank=None, fast_tank=None):
         self.__me_fast = fast_tank
         self.__me_slow = slow_tank
