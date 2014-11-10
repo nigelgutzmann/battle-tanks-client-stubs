@@ -40,10 +40,10 @@ class GameState(object):
                 # we initialized everything to zero already
                 return
 
-            x_start = ter['boundingBox']['corner'][0]
-            y_start = ter['boundingBox']['corner'][1]
-            x_len = ter['boundingBox']['size'][0]
-            y_len = ter['boundingBox']['size'][1]
+            x_start = int(ter['boundingBox']['corner'][0])
+            y_start = int(ter['boundingBox']['corner'][1])
+            x_len = int(ter['boundingBox']['size'][0])
+            y_len = int(ter['boundingBox']['size'][1])
             for x in range(x_len):
                 for y in range(y_len):
                     self.__map[x_start + x][y_start + y] = spot

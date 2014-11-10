@@ -32,7 +32,7 @@ class PublishDecoder(object):
             print "GAMESTATE received!"
             if game_state.boundaries_unset():
                 # set up the map, should only have to do this stuff once
-                game_state.set_boundaries(x=message_data['map']['size'][0], y=message_data['map']['size'][1])
+                game_state.set_boundaries(x=int(message_data['map']['size'][0]), y=int(message_data['map']['size'][1]))
                 game_state.set_terrain(terrain=message_data['map']['terrain'])
                 game_state.print_map()
 
