@@ -49,6 +49,7 @@ class Client(object):
         self.game_info = gameinfo.GameInfo(opts.team_name, opts.match_token, opts.team_password)
         self.cmd = command.Command()
         self.comm = communication.Communication(opts.host_name)
+        self.player = player.Player(self.comm, self.game_info)
 
     def run(self):
         """
@@ -67,8 +68,7 @@ class Client(object):
         print 'Received client token... %s' % self.game_info.client_token
         print 'Starting game...'
 
-        while not self.comm.match_ended():
-            print self.comm.receive(communication.Communication.Origin.PublishSocket)
+        self.player.play_game()
 
         print 'Exiting...'
         exit()
@@ -85,3 +85,6 @@ if __name__ == "__main__":
         client.run()
     except (SystemExit, KeyboardInterrupt):
         client.exit()
+    except Exception as e:
+        if len(e.args) > 0 and e.args[0] == 'game ended'
+        client.run()
