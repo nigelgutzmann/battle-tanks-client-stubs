@@ -58,9 +58,8 @@ class Client(object):
         print 'Received client token... %s' % self.game_info.client_token
         print 'Starting game...'
 
-        #
-        print 'No algorithm detected'
-        #
+        while not self.comm.match_ended():
+            print self.comm.receive(communication.Communication.Origin.PublishSocket)
 
         print 'Exiting...'
         exit()
