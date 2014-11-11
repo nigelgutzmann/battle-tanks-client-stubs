@@ -25,4 +25,5 @@ class Player(object):
 
             # decide what to do
             if decoded == "GAMESTATE":
+                print "decoded, now starting algorithm"
                 self.algorithm.make_move(client_token)
