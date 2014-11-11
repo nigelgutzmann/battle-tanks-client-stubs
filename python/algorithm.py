@@ -100,6 +100,9 @@ class Algorithm(object):
         return target_angle
 
     def __point_turret_at(self, my_point, target):
+        print "MY POINT: " + my_point.toString()
+        print "TARGET: " + target.toString()
+        
         delta_x = target.x - my_point.x
         delta_y = target.y - my_point.y
         if delta_x == 0:

@@ -92,3 +92,6 @@ class Point(object):
 
     def __eq__(self, other):
         return (self.x, self.y) == (other.x, other.y)
+
+    def toString(self):
+        return "(" + str(self.x) + ", " + str(self.y) + ")"
