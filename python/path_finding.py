@@ -48,7 +48,7 @@ class PathFinder(object):
             path.append(current)
 
         for idx, node in enumerate(path):
-            print "Node: " + str(idx) + " (" + node.x + ", " + node.y + ")"
+            print "Node: " + str(idx) + " (" + str(node.x) + ", " + str(node.y) + ")"
         return path
 
     def get_neighbors(self, point):
