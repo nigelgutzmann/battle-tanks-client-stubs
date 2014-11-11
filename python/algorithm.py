@@ -71,5 +71,5 @@ class Algorithm(object):
         elif next_point.y < my_point.y:
             target_angle = 3 * math.pi / 2
         elif next_point.y > my_point.y:
-            target_angle = math.py / 2
+            target_angle = math.pi / 2
         return target_angle
