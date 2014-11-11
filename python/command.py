@@ -1,5 +1,6 @@
 import json
 import gameinfo
+import math
 
 
 class Command(object):
@@ -55,8 +56,9 @@ class Command(object):
     def getTurretRotateCommand(self, tank_id, rads):
         direction = "CW"
         if rads < 0:
-            rads = rads * -1
-            direction = "CCW"
+            rads = rads + 2 * math.pi
+            #rads = rads * -1
+            #direction = "CCW"
         return json.dumps({
             "tank_id": tank_id,
             "comm_type": "ROTATE_TURRET",
