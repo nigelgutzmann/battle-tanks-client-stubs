@@ -43,6 +43,13 @@ class PathFinder(object):
                     came_from[next] = current
 
         # now reconstruct the path
+        secondary_current = current
+        current = goal
+        try:
+            came_from[current]
+        except KeyError:
+            current = secondary_current
+
         path = [current]
         while current != self.source:
             current = came_from[current]
