@@ -32,16 +32,16 @@ class Algorithm(object):
             my_point = self.game_state.get_position_for_slow()
             target_angle = 0
             if next_point.x > my_point.x:
-                if my_rotation > math.pi / 2:
-                    target_angle = math.pi
+                if my_rotation > math.pi:
+                    target_angle = 2 * math.pi
                 else:
                     target_angle = 0
             elif next_point.x < my_point.x:
-                target_angle = math.pi / 2
+                target_angle = math.pi
             elif next_point.y < my_point.y:
-                target_angle = 3 * math.pi / 4
+                target_angle = 3 * math.pi / 2
             elif next_point.y > my_point.y:
-                target_angle = math.py / 4
+                target_angle = math.py / 2
 
             tank_rotate_command = commands.getTankRotateCommand(
                 self.game_state.get_slow_tank_id(),
