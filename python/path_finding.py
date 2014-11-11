@@ -26,7 +26,7 @@ class PathFinder(object):
             iteration_number = iteration_number + 1
             current = frontier.get()[1]
 
-            if (current.x - self.target.x) <= 2 and (current.y - self.target.y) <= 2:
+            if abs(current.x - self.target.x) <= 2 and abs(current.y - self.target.y) <= 2:
                 break
 
             if iteration_number == 20000:
