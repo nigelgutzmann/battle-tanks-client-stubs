@@ -11,6 +11,7 @@ class PathFinder(object):
         return abs(a.x - b.x) + abs(a.y - b.y)
 
     def get_path(self):
+        print "starting get_path"
         if self.map is None or len(self.map) == 0:
             return []
 
@@ -23,7 +24,7 @@ class PathFinder(object):
 
         while not frontier.empty():
             current = frontier.get()
-
+            print "Current node: " + str(current.x) + ", " + str(current.y)
             for next in self.get_neighbors(current):
                 new_cost = cost_so_far[current] + self.cost(current, next)
                 if next not in cost_so_far or new_cost < cost_so_far[next]:
