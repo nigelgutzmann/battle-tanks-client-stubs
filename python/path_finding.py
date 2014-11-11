@@ -71,4 +71,5 @@ class Point(object):
 
     def __eq__(self, other):
         print other
+        print self
         return (self.x, self.y) == (other.x, other.y)
