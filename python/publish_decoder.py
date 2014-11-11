@@ -15,7 +15,7 @@ class PublishDecoder(object):
 
         if message_data['comm_type'] == 'GAME_START':
             print "GAME_START received!"
-            gane_state.reset()
+            game_state.reset()
             return "GAME_START"
 
         elif message_data['comm_type'] == 'GAME_END':
