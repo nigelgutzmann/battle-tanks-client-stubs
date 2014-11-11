@@ -26,11 +26,12 @@ class PathFinder(object):
             iteration_number = iteration_number + 1
             current = frontier.get()
 
-            if current.x - self.target.x <= 2 and current.y - self.target.y <= 2:
+            if (current.x - self.target.x) <= 2 and (current.y - self.target.y) <= 2:
                 break
 
             if iteration_number == 20000:
                 # give up and do something random
+                print "REACHED MAX ITERATION NUMBER"
                 break
 
             for next in self.get_neighbors(current):
