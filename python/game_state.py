@@ -56,7 +56,9 @@ class GameState(object):
 
             for x in range(x_len):
                 for y in range(y_len):
-                    self.__map[x_start + x][y_start + y] = spot
+                    if (x_start + x) < len(self.__map) and (y_start + y) < len(self.__map[0]):
+                        # sometimes the terrain is too big to fit onto the map
+                        self.__map[x_start + x][y_start + y] = spot
 
     def print_map(self):
         x_len = len(self.__map)
