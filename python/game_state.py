@@ -99,15 +99,28 @@ class GameState(object):
         return self.__get_route_to(self.__me_fast, target)
 
     def get_position_for_slow(self):
-        return PathFinder.Point(self.__me_slow['position'][0], self.__me_slow['position'][1])
+        if self.__me_slow is not None:
+            return PathFinder.Point(self.__me_slow['position'][0], self.__me_slow['position'][1])
+        else:
+            center = self.__get_center()
+            return PathFinder.Point(center[0], center[1])
 
     def get_posotion_for_fast(self):
-        return PathFinder.Point(self.__me_fast['position'][0], self.__me_fast['position'][1])
+        if self.__me_fast is not None:
+            return PathFinder.Point(self.__me_fast['position'][0], self.__me_fast['position'][1])
+        else:
+            center = self.__get_center()
+            return PathFinder.Point(center[0], center[1])
 
     def __get_route_to(self, tank, target):
         # returns a list of Points of the path that we should take
-        path_finder = PathFinder(self.__map, target, tank['position'])
-        return path_finder.get_path()
+        if tank is not None:
+            path_finder = PathFinder(self.__map, target, tank['position'])
+            return path_finder.get_path()
+        else:
+            center = self.__get_center()
+            center_p = PathFinder.Point(center[0], center[1])
+            return [center_p, center_p]
 
     def __get_closest_enemy_to(self, tank):
         if tank is None:

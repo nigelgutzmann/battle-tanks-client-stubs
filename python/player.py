@@ -21,7 +21,8 @@ class Player(object):
             message = self.comm.receive(communication.Communication.Origin.PublishSocket)
 
             # decode it
-            self.pub_decoder.decode(message, self.game_state)
+            decoded = self.pub_decoder.decode(message, self.game_state)
 
             # decide what to do
-            self.algorithm.make_move(client_token)
+            if decoded:
+                self.algorithm.make_move(client_token)
