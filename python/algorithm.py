@@ -33,7 +33,7 @@ class Algorithm(object):
             print "Next Point: (" + str(next_point.x) + ", " + str(next_point.y) + ")"
             print "My Point: (" + str(my_point.x) + ", " + str(my_point.y) + ")"
             
-            self.__get_target_angle(my_point, next_point)
+            target_angle = self.__get_target_angle(my_point, next_point)
 
             print target_angle
 
