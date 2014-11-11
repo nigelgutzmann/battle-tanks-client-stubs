@@ -34,11 +34,10 @@ class Algorithm(object):
             my_point = self.game_state.get_position_for_slow()
             print "Next Point: (" + str(next_point.x) + ", " + str(next_point.y) + ")"
             print "My Point: (" + str(my_point.x) + ", " + str(my_point.y) + ")"
-            
+
             target_angle = self.__get_target_angle(my_point, next_point)
 
             print target_angle
-
 
             tank_rotate_command = commands.getTankRotateCommand(
                 self.game_state.get_slow_tank_id(),
@@ -67,11 +66,15 @@ class Algorithm(object):
         # get the turret rotation
         target_point = Point(position_of_target[0], position_of_target[1])
         turret_angle = self.__point_turret_at(route[0], target_point)
+        if turret_angle < 0:
+            turret_angle = turret_angle + 2 * pi
         print "TARGET TURRET ANGLE: " + str(turret_angle)
         change_turret_angle = turret_angle - self.game_state.get_slow_tank_turret_angle()
         print "EXISTING TURRET ANGLE: " + str(self.game_state.get_slow_tank_turret_angle())
         if change_turret_angle > math.pi:
             change_turret_angle = change_turret_angle - 2 * math.pi
+        if change_turret_angle < -1 * math.pi:
+            change_turret_angle = change_turret_angle + 2 * math.pi
         turret_rotate_command = commands.getTurretRotateCommand(self.game_state.get_slow_tank_id(), change_turret_angle)
         print "SENDING: " + str(turret_rotate_command)
         print self.comm.send(turret_rotate_command)
@@ -80,9 +83,6 @@ class Algorithm(object):
         tank_fire_command = commands.getFireCommand(self.game_state.get_slow_tank_id())
         print "SENDING: " + str(tank_fire_command)
         print self.comm.send(tank_fire_command)
-
-
-
 
         # now look at the fast tank
         distance_to_target, position_of_target = self.game_state.get_closest_enemy_to_fast()
