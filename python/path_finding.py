@@ -10,7 +10,7 @@ class PathFinder(object):
     def heuristic(self, a, b):
         return abs(a.x - b.x) + abs(a.y - b.y)
 
-    def get_path():
+    def get_path(self):
         frontier = PriorityQueue()
         frontier.put(self.source, 0)
         came_from = {}
