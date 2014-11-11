@@ -33,6 +33,9 @@ class PathFinder(object):
         current = self.target
         path = [current]
         while current != self.source:
+            print came_from
+            print current
+            print
             current = came_from[current]
             path.append(current)
 
@@ -70,6 +73,4 @@ class Point(object):
         return hash((self.x, self.y))
 
     def __eq__(self, other):
-        print other
-        print self
         return (self.x, self.y) == (other.x, other.y)
