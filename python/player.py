@@ -2,6 +2,7 @@ import command
 import communication
 from publish_decoder import PublishDecoder
 from game_state import GameState
+from algorithm import Algorithm
 
 
 class Player(object):
@@ -11,17 +12,16 @@ class Player(object):
         self.game_info = game_info
         self.pub_decoder = PublishDecoder(game_info)
         self.game_state = GameState()
+        self.algorithm = Algorithm(self.game_state, self.comm)
 
-    def play_game(self):
+    def play_game(self, client_token):
         # TODO: later, we will want to spawn two threads here
         while True:
             # get a message
             message = self.comm.receive(communication.Communication.Origin.PublishSocket)
 
             # decode it
-            print message
             self.pub_decoder.decode(message, self.game_state)
 
             # decide what to do
-
-            # send something
+            self.algorithm.make_move(client_token)

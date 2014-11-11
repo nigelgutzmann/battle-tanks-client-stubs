@@ -1,3 +1,5 @@
+import math
+from path_finding import PathFinder
 
 
 class GameState(object):
@@ -19,6 +21,7 @@ class GameState(object):
         self.__me_slow = None
         self.__me_fast = None
 
+    # FUNCTIONS TO SET UP THE MAP
     def boundaries_unset(self):
         return len(self.__map) == 0
 
@@ -75,3 +78,68 @@ class GameState(object):
     def set_my_position(self, slow_tank=None, fast_tank=None):
         self.__me_fast = fast_tank
         self.__me_slow = slow_tank
+
+    # FUNCTIONS USED BY THE ALGORITHM
+    def get_turret_rotation_for_slow(self):
+        return self.__me_slow['tracks']
+
+    def get_turret_rotation_for_fast(self):
+        return self.__me_fast['tracks']
+
+    def get_closest_enemy_to_slow(self):
+        return self.__get_closest_enemy_to(self.__me_slow)
+
+    def get_closest_enemy_to_fast(self):
+        return self.__get_closest_enemy_to(self.__me_fast)
+
+    def get_route_for_slow(self, target):
+        return self.__get_route_to(self.__me_slow, target)
+
+    def get_route_for_fast(self, target):
+        return self.__get_route_to(self.__me_fast, target)
+
+    def get_position_for_slow(self):
+        return PathFinder.Point(self.__me_slow['position'][0], self.__me_slow['position'][1])
+
+    def get_posotion_for_fast(self):
+        return PathFinder.Point(self.__me_fast['position'][0], self.__me_fast['position'][1])
+
+    def __get_route_to(self, tank, target):
+        # returns a list of Points of the path that we should take
+        path_finder = PathFinder(self.__map, target, tank['position'])
+        return path_finder.get_path()
+
+    def __get_closest_enemy_to(self, tank):
+        if tank is None:
+            # force the tank to go to the center
+            return (9999, self.__get_center())
+        elif self.__enemy_slow is None and self.__enemy_fast is None:
+            # force the tank to go to the center
+            return (9999, self.__get_center())
+        elif self.__enemy_slow is None:
+            return (self.__get_direct_distance(tank, self.__enemy_fast), self.__enemy_fast['position'])
+        elif self.__enemy_fast is None:
+            return (self.__get_direct_distance(tank, self.__enemy_slow), self.__enemy_slow['position'])
+        else:
+            slow_dist = self.__get_direct_distance(tank, self.__enemy_slow)
+            fast_dist = self.__get_direct_distance(tank, self.__enemy_fast)
+            if slow_dist < fast_dist:
+                return (slow_dist, self.__enemy_slow['position'])
+            else:
+                return (fast_dist, self.__enemy_fast['position'])
+
+    def __get_direct_distance(tank_1, tank_2):
+        tank_1_x = tank_1['position'][0]
+        tank_1_y = tank_1['position'][1]
+        tank_2_x = tank_2['position'][0]
+        tank_2_y = tank_2['position'][1]
+        return __get_point_distance(tank_1_x, tank_1_y, tank_2_x, tank_2_y)
+
+    def __get_point_distance(x1, y1, x2, y2):
+        return math.sqrt((tank_1_x - tank_2_x) ^ 2 + (tank_1_y - tank_2_y) ^ 2)
+
+    def __get_center(self):
+        if self.__map is None or len(self.__map) == 0:
+            return [0, 0]
+        else:
+            return [len(self.__map) / 2, len(self.__map[0]) / 2]

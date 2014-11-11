@@ -69,7 +69,7 @@ class Client(object):
         print 'Received client token... %s' % self.game_info.client_token
         print 'Starting game...'
 
-        self.player.play_game()
+        self.player.play_game(self.game_info.client_token)
 
         print 'Exiting...'
         exit()
