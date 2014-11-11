@@ -50,5 +50,13 @@ class Algorithm(object):
 
         print self.comm.send(tank_rotate_command)
 
+        tank_forward_command = commands.getMoveCommand(
+            self.game_state.get_slow_tank_id(),
+            10
+        )
+        print "SENDING: " + str(tank_forward_command)
+
+        print self.comm.send(tank_forward_command)
+
         # now look at the fast tank
         distance_to_target, position_of_target = self.game_state.get_closest_enemy_to_fast()

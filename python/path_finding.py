@@ -25,7 +25,7 @@ class PathFinder(object):
         while not frontier.empty():
             current = frontier.get()
 
-            if current == self.target:
+            if current.x - self.target.x < 5 and current.y - self.target.y < 5:
                 break
             for next in self.get_neighbors(current):
                 new_cost = cost_so_far[current] + self.cost(current, next)
