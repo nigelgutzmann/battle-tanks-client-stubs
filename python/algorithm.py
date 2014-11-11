@@ -27,7 +27,7 @@ class Algorithm(object):
         my_rotation = self.game_state.get_turret_rotation_for_slow()
 
         # the first point is the point that we are currently at, so we have to take the second one in the list
-        if len(next_point) > 2:
+        if len(route) > 2:
             next_point = route[1]
             my_point = self.game_state.get_position_for_slow()
             target_angle = 0
