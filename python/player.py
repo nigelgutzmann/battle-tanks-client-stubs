@@ -18,6 +18,8 @@ class Player(object):
         # TODO: later, we will want to spawn two threads here
         while True:
             # get a message
+            import time
+            print time.time()
             message = self.comm.receive(communication.Communication.Origin.PublishSocket)
 
             # decode it
