@@ -19,6 +19,18 @@ class Player(object):
         while True:
             # get a message
             message = self.comm.receive(communication.Communication.Origin.PublishSocket)
+            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
+            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
+            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
+            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
+            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
+            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
+            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
+            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
+            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
+            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
+            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
+            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
 
             # decode it
             decoded = self.pub_decoder.decode(message, self.game_state)
