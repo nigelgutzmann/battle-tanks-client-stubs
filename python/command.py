@@ -1,5 +1,6 @@
 import json
 import gameinfo
+import math
 
 
 class Command(object):
@@ -56,6 +57,9 @@ class Command(object):
         direction = "CW"
         if rads < 0:
             rads = rads * -1
+            direction = "CCW"
+        elif rads > math.pi:
+            rads = rads - math.pi
             direction = "CCW"
         return json.dumps({
             "tank_id": tank_id,
