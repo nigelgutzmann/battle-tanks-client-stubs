@@ -36,7 +36,6 @@ class PathFinder(object):
                     came_from[next] = current
 
         # now reconstruct the path
-        current = self.target
         path = [current]
         while current != self.source:
             current = came_from[current]
