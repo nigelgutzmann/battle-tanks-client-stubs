@@ -60,6 +60,7 @@ class PathFinder(object):
         ### TODO: check if there is a danger of being shot here, and adjust accordingly
         return 1
 
+
 class Point(object):
     def __init__(self, x, y):
         self.x = x
@@ -69,4 +70,5 @@ class Point(object):
         return hash((self.x, self.y))
 
     def __eq__(self, other):
+        print other
         return (self.x, self.y) == (other.x, other.y)
