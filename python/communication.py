@@ -28,6 +28,7 @@ class Communication(object):
         otherwise it will receive no messages on the
         pub/sub channel
         """
+        return
         self.pub_socket.setsockopt(zmq.SUBSCRIBE, value)
 
     def send(self, message, key=None):
