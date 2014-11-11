@@ -15,7 +15,7 @@ class PathFinder(object):
             return []
 
         frontier = PriorityQueue()
-        frontier.put(self.source, 0)
+        frontier.put((0, self.source,))
         came_from = {}
         cost_so_far = {}
         came_from[self.source] = None
@@ -39,7 +39,7 @@ class PathFinder(object):
                 if next not in cost_so_far or new_cost < cost_so_far[next]:
                     cost_so_far[next] = new_cost
                     priority = new_cost + self.heuristic(self.target, next)
-                    frontier.put(next, priority)
+                    frontier.put((priority, next,))
                     came_from[next] = current
 
         # now reconstruct the path
@@ -60,7 +60,7 @@ class PathFinder(object):
         for idx, node in enumerate(path):
             print "Node: " + str(idx) + " (" + str(node.x) + ", " + str(node.y) + ")"
 
-        print "target: (" + str(self.target.x) + ", " + str(self.target.y)
+        print "target: (" + str(self.target.x) + ", " + str(self.target.y) + ")"
         
         
         return path
