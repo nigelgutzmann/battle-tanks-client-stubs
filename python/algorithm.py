@@ -42,9 +42,13 @@ class Algorithm(object):
         elif next_point.y > my_point.y:
             target_angle = math.py / 4
 
-        tank_rotate_command = commands.getTankRotateCommand(self.game_state.get_slow_tank_id(), target_angle - my_rotation)
+        tank_rotate_command = commands.getTankRotateCommand(
+            self.game_state.get_slow_tank_id(),
+            target_angle - my_rotation
+        )
         print "SENDING: " + str(tank_rotate_command)
-        print self.comm.send(tank_rotate_command, 'resp')
+
+        print self.comm.send(tank_rotate_command)
 
         # now look at the fast tank
         distance_to_target, position_of_target = self.game_state.get_closest_enemy_to_fast()

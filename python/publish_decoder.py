@@ -17,15 +17,17 @@ class PublishDecoder(object):
         if message_data['comm_type'] == 'GAME_START':
             print "GAME_START received!"
             # who cares.
-            return None
+            return "GAME_START"
 
         elif message_data['comm_type'] == 'GAME_END':
             print "GAME_END received!"
             game_state.reset()
+            return "GAME_END"
 
         elif message_data['comm_type'] == "MATCH_END":
             print "MATCH_END received!"
             game_state.reset()
+            return "MATCH_END"
 
         elif message_data['comm_type'] == "GAMESTATE":
             # we have a gamestate packet
@@ -57,7 +59,7 @@ class PublishDecoder(object):
             game_state.set_enemy_position(slow_tank=enemy_slow, fast_tank=enemy_fast)
             game_state.set_my_position(slow_tank=our_slow, fast_tank=our_fast)
 
-        return True
+        return "GAMESTATE"
 
     def __get_slow(self, player):
         for tank in player['tanks']:

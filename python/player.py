@@ -24,5 +24,5 @@ class Player(object):
             decoded = self.pub_decoder.decode(message, self.game_state)
 
             # decide what to do
-            if decoded:
+            if decoded == "GAMESTATE":
                 self.algorithm.make_move(client_token)
