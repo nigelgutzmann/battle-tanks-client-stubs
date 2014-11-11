@@ -11,7 +11,6 @@ class PathFinder(object):
         return abs(a.x - b.x) + abs(a.y - b.y)
 
     def get_path(self):
-        print "starting get_path"
         if self.map is None or len(self.map) == 0:
             return []
 
@@ -30,7 +29,7 @@ class PathFinder(object):
             if current.x - self.target.x <= 2 and current.y - self.target.y <= 2:
                 break
 
-            if iteration_number == 800:
+            if iteration_number == 1600:
                 # give up and do something random
                 break
 

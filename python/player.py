@@ -18,8 +18,6 @@ class Player(object):
         # TODO: later, we will want to spawn two threads here
         while True:
             # get a message
-            import time
-            print time.time()
             message = self.comm.receive(communication.Communication.Origin.PublishSocket)
 
             # decode it
@@ -27,5 +25,4 @@ class Player(object):
 
             # decide what to do
             if decoded == "GAMESTATE":
-                print "decoded, now starting algorithm"
                 self.algorithm.make_move(client_token)

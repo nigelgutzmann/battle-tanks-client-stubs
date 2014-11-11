@@ -14,23 +14,23 @@ class PublishDecoder(object):
             return None
 
         if message_data['comm_type'] == 'GAME_START':
-            print "GAME_START received!"
+            #print "GAME_START received!"
             game_state.reset()
             return "GAME_START"
 
         elif message_data['comm_type'] == 'GAME_END':
-            print "GAME_END received!"
+            #print "GAME_END received!"
             game_state.reset()
             return "GAME_END"
 
         elif message_data['comm_type'] == "MATCH_END":
-            print "MATCH_END received!"
+            #print "MATCH_END received!"
             game_state.reset()
             return "MATCH_END"
 
         elif message_data['comm_type'] == "GAMESTATE":
             # we have a gamestate packet
-            print "GAMESTATE received!"
+            #print "GAMESTATE received!"
             if game_state.boundaries_unset():
                 # set up the map, should only have to do this stuff once
                 game_state.set_boundaries(x=int(message_data['map']['size'][0]), y=int(message_data['map']['size'][1]))
@@ -53,11 +53,6 @@ class PublishDecoder(object):
             our_fast = self.__get_fast(our_team)
             enemy_slow = self.__get_slow(other_team)
             enemy_fast = self.__get_fast(other_team)
-
-            print "Our slow: " + str(our_slow)
-            print "Our fast: " + str(our_fast)
-            print "Enemy slow: " + str(enemy_slow)
-            print "Enemy fast: " + str(enemy_fast)
 
             # save the data
             game_state.set_enemy_position(slow_tank=enemy_slow, fast_tank=enemy_fast)

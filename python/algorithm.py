@@ -30,18 +30,12 @@ class Algorithm(object):
         if len(route) > 2:
             next_point = route[1]
             my_point = self.game_state.get_position_for_slow()
-            target_angle = 0
-            if next_point.x > my_point.x:
-                if my_rotation > math.pi:
-                    target_angle = 2 * math.pi
-                else:
-                    target_angle = 0
-            elif next_point.x < my_point.x:
-                target_angle = math.pi
-            elif next_point.y < my_point.y:
-                target_angle = 3 * math.pi / 2
-            elif next_point.y > my_point.y:
-                target_angle = math.py / 2
+            print "Next Point: (" + str(next_point.x) + ", " + str(next_point.y) + ")"
+            print "My Point: (" + str(my_point.x) + ", " + str(my_point.y) + ")"
+            
+            self.__get_target_angle(my_point, next_point)
+
+            print target_angle
 
             tank_rotate_command = commands.getTankRotateCommand(
                 self.game_state.get_slow_tank_id(),
@@ -67,3 +61,15 @@ class Algorithm(object):
 
         # now look at the fast tank
         distance_to_target, position_of_target = self.game_state.get_closest_enemy_to_fast()
+
+    def __get_target_angle(self, my_point, next_point):
+        target_angle = 0
+        if next_point.x > my_point.x:
+            target_angle = 0
+        elif next_point.x < my_point.x:
+            target_angle = math.pi
+        elif next_point.y < my_point.y:
+            target_angle = 3 * math.pi / 2
+        elif next_point.y > my_point.y:
+            target_angle = math.py / 2
+        return target_angle
