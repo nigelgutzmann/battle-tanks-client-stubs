@@ -67,7 +67,8 @@ class Algorithm(object):
         # get the turret rotation
         target_point = Point(position_of_target[0], position_of_target[1])
         turret_angle = self.__point_turret_at(route[0], target_point)
-        turret_rotate_command = commands.getTurretRotateCommand(self.game_state.get_slow_tank_id(), turret_angle)
+        change_turret_angle = turret_angle - self.game_state.get_slow_tank_turret_angle()
+        turret_rotate_command = commands.getTurretRotateCommand(self.game_state.get_slow_tank_id(), change_turret_angle)
         print "SENDING: " + str(turret_rotate_command)
         print self.comm.send(turret_rotate_command)
 
