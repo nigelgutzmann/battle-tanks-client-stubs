@@ -44,7 +44,7 @@ class PathFinder(object):
 
         # now reconstruct the path
         secondary_current = current
-        current = goal
+        current = self.target
         try:
             came_from[current]
         except KeyError:
