@@ -61,7 +61,7 @@ class GameState(object):
 
         print
         y_iter = range(y_len)
-        r_iter.reverse()
+        y_iter.reverse()
         for y in y_iter:
             print
             for x in range(x_len):
