@@ -81,10 +81,16 @@ class GameState(object):
 
     # FUNCTIONS USED BY THE ALGORITHM
     def get_turret_rotation_for_slow(self):
-        return self.__me_slow['tracks']
+        if self.__me_slow is not None:
+            return self.__me_slow['tracks']
+        else:
+            return 0
 
     def get_turret_rotation_for_fast(self):
-        return self.__me_fast['tracks']
+        if self.__me_fast is not None:
+            return self.__me_fast['tracks']
+        else:
+            return 0
 
     def get_closest_enemy_to_slow(self):
         return self.__get_closest_enemy_to(self.__me_slow)
