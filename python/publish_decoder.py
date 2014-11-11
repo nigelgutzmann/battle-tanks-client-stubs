@@ -57,6 +57,8 @@ class PublishDecoder(object):
             game_state.set_enemy_position(slow_tank=enemy_slow, fast_tank=enemy_fast)
             game_state.set_my_position(slow_tank=our_slow, fast_tank=our_fast)
 
+        return True
+
     def __get_slow(self, player):
         for tank in player['tanks']:
             if tank['type'] == 'TankSlow':
