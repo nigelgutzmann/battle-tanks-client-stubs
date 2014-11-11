@@ -1,5 +1,6 @@
 from command import Command
 import math
+from path_finding import Point
 
 
 class Algorithm(object):
@@ -63,7 +64,14 @@ class Algorithm(object):
             print "SENDING: " + str(tank_forward_command)
             print self.comm.send(tank_forward_command)
 
+        # get the turret rotation
+        target_point = Point(position_of_target[0], position_of_target[1])
+        turret_angle = self.__point_turret_at(route[0], target_point)
+        turret_rotate_command = commands.getTurretRotateCommand(self.game_state.get_slow_tank_id(), turret_angle)
+        print "SENDING: " + str(turret_rotate_command)
+        print self.comm.send(turret_rotate_command)
 
+        # send the fire command
         tank_fire_command = commands.getFireCommand(self.game_state.get_slow_tank_id())
         print "SENDING: " + str(tank_fire_command)
         print self.comm.send(tank_fire_command)
@@ -85,3 +93,9 @@ class Algorithm(object):
         elif next_point.y > my_point.y:
             target_angle = math.pi / 2
         return target_angle
+
+    def __point_turret_at(self, my_point, target):
+        delta_x = target.x - my_point.x
+        delta_y = target.y - my_point.y
+
+        target_angle = math.atan(delta_y * 1.0 / delta_x)

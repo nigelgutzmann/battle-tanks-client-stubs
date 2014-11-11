@@ -52,7 +52,11 @@ class Command(object):
             "client_token": self.client_token,
         })
 
-    def getTurretRotateCommand(self, tank_id, rads, direction="CW"):
+    def getTurretRotateCommand(self, tank_id, rads):
+        direction = "CCW"
+        if rads < 0:
+            rads = rads * -1
+            direction = "CW"
         return json.dumps({
             "tank_id": tank_id,
             "comm_type": "ROTATE_TURRET",
