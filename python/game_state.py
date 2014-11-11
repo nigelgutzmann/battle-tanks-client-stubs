@@ -141,14 +141,14 @@ class GameState(object):
             else:
                 return (fast_dist, self.__enemy_fast['position'])
 
-    def __get_direct_distance(tank_1, tank_2):
+    def __get_direct_distance(self, tank_1, tank_2):
         tank_1_x = tank_1['position'][0]
         tank_1_y = tank_1['position'][1]
         tank_2_x = tank_2['position'][0]
         tank_2_y = tank_2['position'][1]
         return __get_point_distance(tank_1_x, tank_1_y, tank_2_x, tank_2_y)
 
-    def __get_point_distance(x1, y1, x2, y2):
+    def __get_point_distance(self, x1, y1, x2, y2):
         return math.sqrt((tank_1_x - tank_2_x) ^ 2 + (tank_1_y - tank_2_y) ^ 2)
 
     def __get_center(self):
