@@ -146,7 +146,7 @@ class GameState(object):
         tank_1_y = tank_1['position'][1]
         tank_2_x = tank_2['position'][0]
         tank_2_y = tank_2['position'][1]
-        return __get_point_distance(tank_1_x, tank_1_y, tank_2_x, tank_2_y)
+        return self.__get_point_distance(tank_1_x, tank_1_y, tank_2_x, tank_2_y)
 
     def __get_point_distance(self, x1, y1, x2, y2):
         return math.sqrt((tank_1_x - tank_2_x) ^ 2 + (tank_1_y - tank_2_y) ^ 2)
