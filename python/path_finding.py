@@ -27,11 +27,7 @@ class PathFinder(object):
             current = frontier.get()[1]
 
             if abs(current.x - self.target.x) <= 2 and abs(current.y - self.target.y) <= 2:
-                break
-
-            if iteration_number == 20000:
-                # give up and do something random
-                print "REACHED MAX ITERATION NUMBER"
+                print "FOUND TARGET"
                 break
 
             for next in self.get_neighbors(current):
@@ -41,6 +37,9 @@ class PathFinder(object):
                     priority = new_cost + self.heuristic(self.target, next)
                     frontier.put((priority, next,))
                     came_from[next] = current
+
+        if frontier.empty():
+            print "SCANNED EVERYWHERE"
 
         # now reconstruct the path
         secondary_current = current

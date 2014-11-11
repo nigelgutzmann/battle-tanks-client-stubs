@@ -52,6 +52,14 @@ class Algorithm(object):
             print "SENDING: " + str(tank_forward_command)
 
             print self.comm.send(tank_forward_command)
+
+            tank_fire_command = command.getFireCommand(self.game_state.get_slow_tank_id())
+
+            print "SENDING: " + str(tank_fire_command)
+
+            print self.comm.send(tank_fire_command)
+
+            
         else:
             tank_forward_command = commands.getMoveCommand(
                 self.game_state.get_slow_tank_id(),
