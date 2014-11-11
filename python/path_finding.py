@@ -15,7 +15,7 @@ class PathFinder(object):
             return []
 
         frontier = PriorityQueue()
-        frontier.put((0 ,self.source,))
+        frontier.put((0, self.source,))
         came_from = {}
         cost_so_far = {}
         came_from[self.source] = None
@@ -40,14 +40,10 @@ class PathFinder(object):
 
         if frontier.empty():
             print "SCANNED EVERYWHERE"
-
-        # now reconstruct the path
-        secondary_current = Point(current.x, current.y)
-        current = self.target
-        try:
-            came_from[current]
-        except KeyError:
-            current = secondary_current
+            # choose somewhere far to go
+        else:
+            # choose somewhere we can go
+            current = self.target
 
         path = [current]
         while current != self.source:
@@ -56,14 +52,12 @@ class PathFinder(object):
 
         path.reverse()
 
-        for idx, node in enumerate(path):
+        """for idx, node in enumerate(path):
             print "Node: " + str(idx) + " (" + str(node.x) + ", " + str(node.y) + ")"
 
-        print "target: (" + str(self.target.x) + ", " + str(self.target.y) + ")"
-        
-        
-        return path
+        print "target: (" + str(self.target.x) + ", " + str(self.target.y) + ")"""
 
+        return path
 
     def get_neighbors(self, point):
         if self.map is None or len(self.map) == 0:
