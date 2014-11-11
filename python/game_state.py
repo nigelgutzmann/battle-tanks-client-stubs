@@ -49,7 +49,7 @@ class GameState(object):
             y_len = int(ter['boundingBox']['size'][1])
             for x in range(x_len):
                 for y in range(y_len):
-                    self.__map[x_start + x][y_start - y] = spot
+                    self.__map[x_start + x][y_start + y] = spot
 
     def print_map(self):
         x_len = len(self.__map)
