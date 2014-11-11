@@ -60,7 +60,7 @@ class GameState(object):
         y_len = len(self.__map[0])
 
         print
-        for y in range(y_len):
+        for y in range(y_len).reverse():
             print
             for x in range(x_len):
                 print str(self.__map[x][y]) + " ",
