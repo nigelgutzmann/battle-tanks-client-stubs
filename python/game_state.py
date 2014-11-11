@@ -155,7 +155,7 @@ class GameState(object):
         return self.__get_point_distance(tank_1_x, tank_1_y, tank_2_x, tank_2_y)
 
     def __get_point_distance(self, x1, y1, x2, y2):
-        return math.sqrt((tank_1_x - tank_2_x) ^ 2 + (tank_1_y - tank_2_y) ^ 2)
+        return math.sqrt((x1 - x2) ^ 2 + (y1 - y1) ^ 2)
 
     def __get_center(self):
         if self.__map is None or len(self.__map) == 0:
