@@ -1,5 +1,5 @@
 import math
-from path_finding import PathFinder
+from path_finding import PathFinder, Point
 
 
 class GameState(object):
@@ -106,17 +106,17 @@ class GameState(object):
 
     def get_position_for_slow(self):
         if self.__me_slow is not None:
-            return PathFinder.Point(self.__me_slow['position'][0], self.__me_slow['position'][1])
+            return Point(self.__me_slow['position'][0], self.__me_slow['position'][1])
         else:
             center = self.__get_center()
-            return PathFinder.Point(center[0], center[1])
+            return Point(center[0], center[1])
 
     def get_posotion_for_fast(self):
         if self.__me_fast is not None:
-            return PathFinder.Point(self.__me_fast['position'][0], self.__me_fast['position'][1])
+            return Point(self.__me_fast['position'][0], self.__me_fast['position'][1])
         else:
             center = self.__get_center()
-            return PathFinder.Point(center[0], center[1])
+            return Point(center[0], center[1])
 
     def __get_route_to(self, tank, target):
         # returns a list of Points of the path that we should take
@@ -125,7 +125,7 @@ class GameState(object):
             return path_finder.get_path()
         else:
             center = self.__get_center()
-            center_p = PathFinder.Point(center[0], center[1])
+            center_p = Point(center[0], center[1])
             return [center_p, center_p]
 
     def __get_closest_enemy_to(self, tank):
