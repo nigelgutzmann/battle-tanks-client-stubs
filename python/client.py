@@ -86,8 +86,3 @@ if __name__ == "__main__":
         client.run()
     except (SystemExit, KeyboardInterrupt):
         client.exit()
-    except Exception as e:
-        if len(e.args) > 0 and e.args[0] == 'game ended':
-            client.run()
-        else:
-            raise
