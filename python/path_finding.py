@@ -11,6 +11,9 @@ class PathFinder(object):
         return abs(a.x - b.x) + abs(a.y - b.y)
 
     def get_path(self):
+        if self.map is None or len(self.map) == 0:
+            return []
+
         frontier = PriorityQueue()
         frontier.put(self.source, 0)
         came_from = {}
@@ -42,7 +45,7 @@ class PathFinder(object):
         return path
 
     def get_neighbors(self, point):
-        if self.map is not None or len(self.map) == 0:
+        if self.map is None or len(self.map) == 0:
             return []
 
         x_len = len(self.map)
