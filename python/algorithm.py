@@ -97,5 +97,11 @@ class Algorithm(object):
     def __point_turret_at(self, my_point, target):
         delta_x = target.x - my_point.x
         delta_y = target.y - my_point.y
-
+        if delta_x == 0:
+            if delta_y > 0:
+                return math.pi / 2
+            else:
+                return math.pi / 2 * -1
         target_angle = math.atan(delta_y * 1.0 / delta_x)
+
+        return target_angle
