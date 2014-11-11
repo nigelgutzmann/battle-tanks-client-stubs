@@ -27,9 +27,6 @@ class PathFinder(object):
 
             if current == self.target:
                 break
-
-            print "Current node: " + str(current.x) + ", " + str(current.y)
-            print "Goal: " + str(self.target.x) + ", " + str(self.target.y)
             for next in self.get_neighbors(current):
                 new_cost = cost_so_far[current] + self.cost(current, next)
                 if next not in cost_so_far or new_cost < cost_so_far[next]:
@@ -42,9 +39,6 @@ class PathFinder(object):
         current = self.target
         path = [current]
         while current != self.source:
-            print came_from
-            print current
-            print
             current = came_from[current]
             path.append(current)
 
