@@ -42,7 +42,7 @@ class PathFinder(object):
             print "SCANNED EVERYWHERE"
 
         # now reconstruct the path
-        secondary_current = current
+        secondary_current = Point(current.x, current.y)
         current = self.target
         try:
             came_from[current]
