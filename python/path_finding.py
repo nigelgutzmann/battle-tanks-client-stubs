@@ -47,9 +47,7 @@ class PathFinder(object):
             current = came_from[current]
             path.append(current)
 
-        for idx, node in enumerate(path):
-            print "Node: " + str(idx) + " (" + str(node.x) + ", " + str(node.y) + ")"
-        return path
+        return path.reverse()
 
     def get_neighbors(self, point):
         if self.map is None or len(self.map) == 0:
@@ -76,8 +74,8 @@ class PathFinder(object):
 
 class Point(object):
     def __init__(self, x, y):
-        self.x = x
-        self.y = y
+        self.x = int(x)
+        self.y = int(y)
 
     def __hash__(self):
         return hash((self.x, self.y))
