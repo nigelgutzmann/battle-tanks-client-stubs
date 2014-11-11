@@ -29,7 +29,7 @@ class PathFinder(object):
             if current.x - self.target.x <= 2 and current.y - self.target.y <= 2:
                 break
 
-            if iteration_number == 1600:
+            if iteration_number == 20000:
                 # give up and do something random
                 break
 
