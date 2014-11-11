@@ -19,7 +19,6 @@ class Command(object):
 
     def __init__(self, client_token=None):
         self.client_token = client_token
-        self.previous_turret_dir = ""
 
     def getMatchConnectCommand(self, team_name, match_token, team_password):
         """
@@ -63,11 +62,6 @@ class Command(object):
             rads = rads - math.pi
             direction = "CCW"
 
-        if direction != self.previous_turret_dir:
-            import time
-            time.sleep(0.05)
-
-        self.previous_turret_dir = direction
         return json.dumps({
             "tank_id": tank_id,
             "comm_type": "ROTATE_TURRET",
