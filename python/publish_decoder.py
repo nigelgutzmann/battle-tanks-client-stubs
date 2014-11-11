@@ -6,14 +6,14 @@ class PublishDecoder(object):
         self.game_info = game_info
 
     def decode(self, message, game_state):
+        print
+        print
+        print "MESSAGE RECEIVED"
+        print message
+        print
+        print
         try:
             message_data = json.loads(message)
-            print
-            print
-            print "MESSAGE RECEIVED"
-            print message_data
-            print
-            print
         except:
             # sometimes it just returns the game token, which isn't json.
             # just drop it
