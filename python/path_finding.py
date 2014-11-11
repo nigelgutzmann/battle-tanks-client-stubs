@@ -22,11 +22,18 @@ class PathFinder(object):
         came_from[self.source] = None
         cost_so_far[self.source] = 0
 
+        iteration_number = 0
         while not frontier.empty():
+            iteration_number = iteration_number + 1
             current = frontier.get()
 
             if current.x - self.target.x <= 2 and current.y - self.target.y <= 2:
                 break
+
+            if iteration_number = 800:
+                # give up and do something random
+                break
+
             for next in self.get_neighbors(current):
                 new_cost = cost_so_far[current] + self.cost(current, next)
                 if next not in cost_so_far or new_cost < cost_so_far[next]:

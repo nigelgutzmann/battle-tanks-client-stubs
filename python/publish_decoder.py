@@ -6,23 +6,16 @@ class PublishDecoder(object):
         self.game_info = game_info
 
     def decode(self, message, game_state):
-        print
-        print
-        print "MESSAGE RECEIVED"
-        print message
-        print
-        print
         try:
             message_data = json.loads(message)
         except:
             # sometimes it just returns the game token, which isn't json.
             # just drop it
-            print "non-json received!"
             return None
 
         if message_data['comm_type'] == 'GAME_START':
             print "GAME_START received!"
-            # who cares.
+            gane_state.reset()
             return "GAME_START"
 
         elif message_data['comm_type'] == 'GAME_END':
@@ -38,8 +31,6 @@ class PublishDecoder(object):
         elif message_data['comm_type'] == "GAMESTATE":
             # we have a gamestate packet
             print "GAMESTATE received!"
-            print
-            print message_data
             if game_state.boundaries_unset():
                 # set up the map, should only have to do this stuff once
                 game_state.set_boundaries(x=int(message_data['map']['size'][0]), y=int(message_data['map']['size'][1]))
