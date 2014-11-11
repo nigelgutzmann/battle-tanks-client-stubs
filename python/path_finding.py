@@ -48,7 +48,15 @@ class PathFinder(object):
             path.append(current)
 
         path.reverse()
+
+        for idx, node in enumerate(path):
+            print "Node: " + str(idx) + " (" + str(node.x) + ", " + str(node.y) + ")"
+
+        print "target: (" + str(self.target.x) + ", " + str(self.target.y)
+        
+        
         return path
+
 
     def get_neighbors(self, point):
         if self.map is None or len(self.map) == 0:
