@@ -53,7 +53,7 @@ class Algorithm(object):
 
             print self.comm.send(tank_forward_command)
 
-            tank_fire_command = commansd.getFireCommand(self.game_state.get_slow_tank_id())
+            tank_fire_command = commands.getFireCommand(self.game_state.get_slow_tank_id())
 
             print "SENDING: " + str(tank_fire_command)
 
