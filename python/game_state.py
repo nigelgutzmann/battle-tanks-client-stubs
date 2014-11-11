@@ -37,7 +37,7 @@ class GameState(object):
             spot = 0
             if ter['type'] == 'SOLID':
                 spot = 2
-            elif ter['type'] == 'IMPASSIBLE':
+            elif ter['type'] == 'IMPASSABLE':
                 spot = 1
             else:
                 # we initialized everything to zero already
