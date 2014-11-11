@@ -141,6 +141,18 @@ class GameState(object):
         else:
             return ""
 
+    def get_slow_tank_turret_angle(self):
+        if self.__me_slow is not None:
+            return self.__me_slow['turret']
+        else:
+            return 0
+
+    def get_fast_tank_turret_angle(self):
+        if self.__me_fast is not None:
+            return self.__me_fast['turret']
+        else:
+            return 0
+
     def __get_route_to(self, tank, target):
         # returns a list of Points of the path that we should take
         if tank is not None:
