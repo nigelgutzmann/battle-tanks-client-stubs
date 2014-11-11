@@ -1,8 +1,9 @@
 from command import Command
 import math
 
+
 class Algorithm(object):
-    def init(self, game_state, comm):
+    def __init__(self, game_state, comm):
         self.game_state = game_state
         self.comm = comm
 
