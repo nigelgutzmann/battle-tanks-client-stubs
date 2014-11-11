@@ -118,6 +118,18 @@ class GameState(object):
             center = self.__get_center()
             return Point(center[0], center[1])
 
+    def get_slow_tank_id(self):
+        if self.__me_slow is not None:
+            return self.__me_slow['id']
+        else:
+            return ""
+
+    def get_fast_tank_id(self):
+        if self.__me_fast is not None:
+            return self.__me_fast['id']
+        else:
+            return ""
+
     def __get_route_to(self, tank, target):
         # returns a list of Points of the path that we should take
         if tank is not None:
