@@ -47,7 +47,8 @@ class PathFinder(object):
             current = came_from[current]
             path.append(current)
 
-        return path.reverse()
+        path.reverse()
+        return path
 
     def get_neighbors(self, point):
         if self.map is None or len(self.map) == 0:
