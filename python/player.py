@@ -39,4 +39,4 @@ class Player(object):
             # decide what to do
             if decoded == "GAMESTATE":
                 self.algorithm.make_move(client_token)
-                stop = True
+                #stop = True
