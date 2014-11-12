@@ -38,37 +38,27 @@ class Algorithm(object):
 
         if next_point:  # if we can find a next point...
             my_point = self.game_state.get_position_for_slow()
-            
             target_angle = self.__get_target_angle(my_point, next_point)
-
 
             tank_rotate_command = commands.getTankRotateCommand(
                 self.game_state.get_slow_tank_id(),
                 target_angle - my_rotation
             )
-            self.comm.send(tank_rotate_command)
+            print self.comm.send(tank_rotate_command)
 
-            # go forward
-            tank_forward_command = commands.getMoveCommand(
-                self.game_state.get_slow_tank_id(),
-                10
-            )
-            self.comm.send(tank_forward_command)
-
-        else:
-            tank_forward_command = commands.getMoveCommand(
-                self.game_state.get_slow_tank_id(),
-                10,
-                direction="REV"
-            )
-            self.comm.send(tank_forward_command)
+        # go forward
+        tank_forward_command = commands.getMoveCommand(
+            self.game_state.get_slow_tank_id(),
+            10
+        )
+        self.comm.send(tank_forward_command)
 
         # get the turret rotation
         target_point = Point(position_of_target[0], position_of_target[1])
         turret_angle = self.__get_target_angle(route[0], target_point)
         change_turret_angle = turret_angle - self.game_state.get_slow_tank_turret_angle()
         turret_rotate_command = commands.getTurretRotateCommand(self.game_state.get_slow_tank_id(), change_turret_angle)
-        self.comm.send(turret_rotate_command)
+        print self.comm.send(turret_rotate_command)
 
         # send the fire command
         tank_fire_command = commands.getFireCommand(self.game_state.get_slow_tank_id())
