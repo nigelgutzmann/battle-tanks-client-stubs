@@ -171,7 +171,7 @@ class GameState(object):
 
     def __get_all_tanks(self):
         tanks = [self.__me_slow, self.__me_fast, self.__enemy_slow, self.__enemy_fast]
-        return [tank if tank is not None for tank in tanks]
+        return [tank for tank in tanks if tank is not None]
 
     def __get_closest_enemy_to(self, tank):
         if tank is None:
