@@ -16,8 +16,8 @@ class Player(object):
 
     def play_game(self, client_token):
         # TODO: later, we will want to spawn two threads here
-        decoded = False
-        while not decoded:
+        stop = False
+        while True:
             # get a message
             message = self.comm.receive(communication.Communication.Origin.PublishSocket)
             message = self.comm.receive(communication.Communication.Origin.PublishSocket)
@@ -39,4 +39,4 @@ class Player(object):
             # decide what to do
             if decoded == "GAMESTATE":
                 self.algorithm.make_move(client_token)
-                #decoded = True
+                #stop = True
