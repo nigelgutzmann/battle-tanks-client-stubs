@@ -44,10 +44,10 @@ class GameState(object):
                 return
 
             print "Map dimensions: "  + str(len(self.__map)) + " x " + str(len(self.__map[0]))
-            x_start = int(ter['boundingBox']['corner'][0])
-            y_start = int(ter['boundingBox']['corner'][1])
-            x_len = int(ter['boundingBox']['size'][0])
-            y_len = int(ter['boundingBox']['size'][1])
+            x_start = int(round(ter['boundingBox']['corner'][0], 0))
+            y_start = int(round(ter['boundingBox']['corner'][1], 0))
+            x_len = int(round(ter['boundingBox']['size'][0], 0))
+            y_len = int(round(ter['boundingBox']['size'][1], 0))
 
             print x_start
             print y_start

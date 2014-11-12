@@ -56,7 +56,7 @@ class Command(object):
     def getTurretRotateCommand(self, tank_id, rads):
         direction = "CW"
         if rads < 0:
-            rads = rads * -1
+            rads = rads + math.pi
             direction = "CCW"
         elif rads > math.pi:
             rads = rads - math.pi

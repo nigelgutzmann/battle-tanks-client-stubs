@@ -103,11 +103,6 @@ class Algorithm(object):
 
         delta_x = target.x - my_point.x
         delta_y = target.y - my_point.y
-        if delta_x == 0:
-            if delta_y > 0:
-                return math.pi / 2
-            else:
-                return math.pi / 2 * -1
 
         target_angle = math.atan2(delta_y, delta_x)
         return target_angle

@@ -4,8 +4,8 @@ from Queue import PriorityQueue
 class PathFinder(object):
     def __init__(self, mapped_area, target, source):
         self.map = mapped_area
-        self.target = Point(int(target[0]), int(target[1]))
-        self.source = Point(int(source[0]), int(source[1]))
+        self.target = Point(target[0], target[1])
+        self.source = Point(source[0], source[1])
 
     def heuristic(self, a, b):
         return abs(a.x - b.x) + abs(a.y - b.y)
@@ -84,8 +84,8 @@ class PathFinder(object):
 
 class Point(object):
     def __init__(self, x, y):
-        self.x = int(x)
-        self.y = int(y)
+        self.x = int(round(x, 0))
+        self.y = int(round(y, 0))
 
     def __hash__(self):
         return hash((self.x, self.y))
