@@ -127,7 +127,7 @@ class Point(object):
         return (self.x, self.y) == (other.x, other.y)
 
     def distance_to(self, other):
-        return math.sqrt((self.x - other.x) * (self.x - other.x)) + (self.y - other.y) * (self.y - other.y))
+        return math.sqrt((self.x - other.x) * (self.x - other.x) + (self.y - other.y) * (self.y - other.y))
 
     def toString(self):
         return "(" + str(self.x) + ", " + str(self.y) + ")"
