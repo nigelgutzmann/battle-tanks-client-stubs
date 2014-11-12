@@ -84,12 +84,12 @@ class PathFinder(object):
             ## hard to predict this far into the future, just ignore it
             return 1
         for projectile in self.projectile_list:
-            if projectile_will_hit(projectile, next):
+            if self.projectile_will_hit(projectile, next):
                 return 999999
             
         return 1
 
-    def projectile_will_hit(projectile, point):
+    def projectile_will_hit(self, projectile, point):
         #""" returns TRUE if a projectile will hit the point"""
         print "projectile point: " + projectile.toString()
         print "analyzed point: " + projectile.toString()
