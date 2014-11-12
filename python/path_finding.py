@@ -83,7 +83,6 @@ class PathFinder(object):
 
     def cost(self, current, next, move_number):
         ### TODO: check if there is a danger of being shot here, and adjust accordingly
-        print move_number
         if move_number > 10:
             ## hard to predict this far into the future, just ignore it
             return 1
@@ -95,21 +94,14 @@ class PathFinder(object):
 
     def projectile_will_hit(self, projectile, point):
         #""" returns TRUE if a projectile will hit the point"""
-        projectile_point = Point(projectile['position'][0], projectile['position'][1])
-        print "projectile point: " + projectile_point.toString()
-        print "analyzed point: " + point.toString()
         delta_x = projectile_point.x - point.x
         delta_y = projectile_point.y - point.y
 
         angle = math.atan2(delta_y, delta_x)
-        print "angle between projectile and point: " + str(angle)
 
         distance = projectile_point.distance_to(point)
         # for safety sake, just assume the radius is always the max (2m)
         delta = math.atan2(2, distance)
-        print "error delta: " + str(delta)
-
-        print "projectile direction: " + str(projectile['direction'])
         if projectile['direction'] >= angle - delta and projectile['direction'] <= angle + delta:
             print "WILL HIT!!!"
             return True
