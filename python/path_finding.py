@@ -20,6 +20,7 @@ class PathFinder(object):
         frontier.put((0, self.source,))
         came_from = {}
         cost_so_far = {}
+        length_so_far = {}
         came_from[self.source] = None
         cost_so_far[self.source] = 0
         length_so_far[self.source] = 0
