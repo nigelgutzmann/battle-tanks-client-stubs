@@ -29,8 +29,15 @@ class Algorithm(object):
         #print "My rotation: " + str(my_rotation)
 
         # the first point is the point that we are currently at, so we have to take the second one in the list
-        if len(route) > 2:
+        next_point = None
+        if len(route) > 4:
+            next_point = route[3]
+        elif len(route) > 3:
+            next_point = route[2]
+        elif len(route) > 2:
             next_point = route[1]
+
+        if next_point:  # if we can find a next point...
             my_point = self.game_state.get_position_for_slow()
             print "Next Point: (" + str(next_point.x) + ", " + str(next_point.y) + ")"
             print "My Point: (" + str(my_point.x) + ", " + str(my_point.y) + ")"
