@@ -94,6 +94,7 @@ class PathFinder(object):
 
     def projectile_will_hit(self, projectile, point):
         #""" returns TRUE if a projectile will hit the point"""
+        projectile_point = Point(projectile['position'][0], projectile['position'][1])
         delta_x = projectile_point.x - point.x
         delta_y = projectile_point.y - point.y
 
