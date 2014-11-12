@@ -58,6 +58,9 @@ class PathFinder(object):
 
         path.reverse()
 
+        for point in path:
+            print point.toString()
+
         return path
 
     def get_neighbors(self, point):
@@ -80,6 +83,7 @@ class PathFinder(object):
 
     def cost(self, current, next, move_number):
         ### TODO: check if there is a danger of being shot here, and adjust accordingly
+        print move_number
         if move_number > 10:
             ## hard to predict this far into the future, just ignore it
             return 1
