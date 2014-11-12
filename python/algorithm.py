@@ -75,6 +75,7 @@ class Algorithm(object):
         turret_angle = self.__get_target_angle(route[0], target_point)
         change_turret_angle = turret_angle - self.game_state.get_slow_tank_turret_angle()
         turret_rotate_command = commands.getTurretRotateCommand(self.game_state.get_slow_tank_id(), change_turret_angle)
+        self.comm.send(turret_rotate_command)
 
         # send the fire command
         tank_fire_command = commands.getFireCommand(self.game_state.get_slow_tank_id())
