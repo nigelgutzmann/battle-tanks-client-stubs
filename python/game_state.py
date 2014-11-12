@@ -91,13 +91,13 @@ class GameState(object):
         self.__me_slow = slow_tank
 
     # FUNCTIONS USED BY THE ALGORITHM
-    def get_turret_rotation_for_slow(self):
+    def get_track_rotation_for_slow(self):
         if self.__me_slow is not None:
             return self.__me_slow['tracks']
         else:
             return 0
 
-    def get_turret_rotation_for_fast(self):
+    def get_track_rotation_for_fast(self):
         if self.__me_fast is not None:
             return self.__me_fast['tracks']
         else:

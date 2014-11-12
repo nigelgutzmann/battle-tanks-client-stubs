@@ -43,8 +43,11 @@ class Command(object):
     def getTankRotateCommand(self, tank_id, rads):
         direction = "CCW"
         if rads < 0:
-            rads = rads * -1
+            rads = rads + 2 * math.pi
+        if rads > math.pi:
+            rads = 2 * math.pi - rads
             direction = "CW"
+
         return json.dumps({
             "tank_id": tank_id,
             "comm_type": "ROTATE",
