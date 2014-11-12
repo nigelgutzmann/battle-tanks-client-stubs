@@ -66,10 +66,6 @@ class Algorithm(object):
         # get the turret rotation
         target_point = Point(position_of_target[0], position_of_target[1])
         turret_angle = self.__point_turret_at(route[0], target_point)
-        if turret_angle < 0:
-            turret_angle = turret_angle + 2 * math.pi
-        if turret_angle > 2 * math.pi:
-            turret_angle = turret_angle - 2 * math.pi
         print "TARGET TURRET ANGLE: " + str(turret_angle)
         change_turret_angle = turret_angle - self.game_state.get_slow_tank_turret_angle()
         print "EXISTING TURRET ANGLE: " + str(self.game_state.get_slow_tank_turret_angle())
@@ -105,4 +101,9 @@ class Algorithm(object):
         delta_y = target.y - my_point.y
 
         target_angle = math.atan2(delta_y, delta_x)
+
+        if target_angle < 0:
+            target_angle = target_angle + 2 * math.pi
+        if target_angle > 2 * math.pi:
+            target_angle = target_angle - 2 * math.pi
         return target_angle

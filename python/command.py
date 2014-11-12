@@ -54,13 +54,12 @@ class Command(object):
         })
 
     def getTurretRotateCommand(self, tank_id, rads):
-        direction = "CW"
+        direction = "CCW"
         if rads < 0:
-            rads = rads + math.pi
-            direction = "CCW"
-        elif rads > math.pi:
-            rads = rads - math.pi
-            direction = "CCW"
+            rads = rads + 2 * math.pi
+        if rads > math.pi:
+            rads = 2 * math.pi - rads
+            direction = "CW"
 
         return json.dumps({
             "tank_id": tank_id,
