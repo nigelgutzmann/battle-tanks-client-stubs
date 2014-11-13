@@ -90,7 +90,7 @@ class PathFinder(object):
                     return 1
         return 1
 
-    def projectile_will_hit(point, projectile):
+    def projectile_will_hit(self, point, projectile):
         projectile_point = Point(projectile['position'][0], projectile['position'][1])
 
         length = point.x - projectile_point.x
