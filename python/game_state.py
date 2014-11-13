@@ -122,7 +122,7 @@ class GameState(object):
             center = self.__get_center()
             return Point(center[0], center[1])
 
-    def get_posotion_for_fast(self):
+    def get_position_for_fast(self):
         if self.__me_fast is not None:
             return Point(self.__me_fast['position'][0], self.__me_fast['position'][1])
         else:
