@@ -173,7 +173,7 @@ class GameState(object):
             return 0
 
     def get_target_point_for_tank_at_for_fast(self, position):
-        tank = None:
+        tank = None
         position_point = Point(position[0], position[1])
         if self.__enemy_fast is not None and self.__enemy_fast['position'] == position:
             if self.__emeny_fast_old_position and \
