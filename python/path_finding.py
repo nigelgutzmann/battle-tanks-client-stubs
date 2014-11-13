@@ -32,7 +32,7 @@ class PathFinder(object):
                 break
 
             for next in self.get_neighbors(current):
-                new_cost = cost_so_far[current] + self.cost(current, next)
+                new_cost = cost_so_far[current] + self.cost(current, next, moves_so_far[current])
                 new_moves = moves_so_far[current] + 1
                 if next not in cost_so_far or new_cost < cost_so_far[next]:
                     cost_so_far[next] = new_cost
@@ -80,7 +80,9 @@ class PathFinder(object):
         # only return points that are on the grid and that are passable
         return [p for p in all_points if p is not None and self.map[p.x][p.y] < 1]
 
-    def cost(self, current, next):
+    def cost(self, current, next, moves):
+        if moves > 10:
+            return 1
         ### TODO: check if there is a danger of being shot here, and adjust accordingly
         return 1
 
