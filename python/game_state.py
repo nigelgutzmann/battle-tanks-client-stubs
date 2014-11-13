@@ -160,9 +160,8 @@ class GameState(object):
             projectile_list = []
             for tank in self.__get_all_tanks():
                 projectile_list.extend(tank['projectiles'])
-
-            print "ALL PROJECTILES: " + str(projectile_list)
-            path_finder = PathFinder(self.__map, target, tank['position'], projectile_list)
+            #path_finder = PathFinder(self.__map, target, tank['position'], projectile_list)
+            path_finder = PathFinder(self.__map, target, tank['position'])
             return path_finder.get_path()
         else:
             center = self.__get_center()

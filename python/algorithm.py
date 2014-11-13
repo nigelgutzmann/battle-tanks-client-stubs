@@ -77,7 +77,6 @@ class Algorithm(object):
         distance_to_target, position_of_target = self.game_state.get_closest_enemy_to_fast()
 
     def __get_target_angle(self, my_point, target):
-
         delta_x = target.x - my_point.x
         delta_y = target.y - my_point.y
 
