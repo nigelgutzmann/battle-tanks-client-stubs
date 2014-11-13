@@ -2,10 +2,11 @@ from Queue import PriorityQueue
 
 
 class PathFinder(object):
-    def __init__(self, mapped_area, target, source):
+    def __init__(self, mapped_area, target, source, projectile_list):
         self.map = mapped_area
         self.target = Point(target[0], target[1])
         self.source = Point(source[0], source[1])
+        self.projectile_list = projectile_list
 
     def heuristic(self, a, b):
         return abs(a.x - b.x) + abs(a.y - b.y)
@@ -18,12 +19,12 @@ class PathFinder(object):
         frontier.put((0, self.source,))
         came_from = {}
         cost_so_far = {}
+        steps_so_far = {}
         came_from[self.source] = None
         cost_so_far[self.source] = 0
+        steps_so_far[self.source] = 0
 
-        iteration_number = 0
         while not frontier.empty():
-            iteration_number = iteration_number + 1
             current = frontier.get()[1]
 
             if abs(current.x - self.target.x) == 0 and abs(current.y - self.target.y) == 0:
@@ -31,9 +32,11 @@ class PathFinder(object):
                 break
 
             for next in self.get_neighbors(current):
-                new_cost = cost_so_far[current] + self.cost(current, next)
+                new_cost = cost_so_far[current] + self.cost(current, next, steps_so_far[current])
+                new_steps = steps_so_far[current] + 1
                 if next not in cost_so_far or new_cost < cost_so_far[next]:
                     cost_so_far[next] = new_cost
+                    steps_so_far[next] = new_steps
                     priority = new_cost + self.heuristic(self.target, next)
                     frontier.put((priority, next,))
                     came_from[next] = current
@@ -77,9 +80,39 @@ class PathFinder(object):
         # only return points that are on the grid and that are passable
         return [p for p in all_points if p is not None and self.map[p.x][p.y] < 1]
 
-    def cost(self, current, next):
-        ### TODO: check if there is a danger of being shot here, and adjust accordingly
+    def cost(self, current, next, steps):
+        if steps > 10:
+            return 1
+        for projectile in self.projectile_list:
+            if projectile_will_hit(projectile, next):
+                return 999999
         return 1
+
+    def projectile_will_hit(projectile, point):
+        #""" returns TRUE if a projectile will hit the point"""
+        print "projectile point: " + projectile.toString()
+        print "analyzed point: " + projectile.toString()
+
+        projectile_point = Point(projectile['position'][0], projectile['position'][1])
+        delta_x = projectile_point.x - point.x
+        delta_y = projectile_point.y - point.y
+
+        angle = math.atan2(delta_y, delta_x)
+        print "angle between projectile and point: " + str(angle)
+
+        distance = projectile_point.distance_to(point)
+        # for safety sake, just assume the radius is always the max (2m)
+        delta = math.atan2(2, distance)
+        print "error delta: " + str(delta)
+
+        print "projectile direction: " + str(projectile['direction'])
+        if projectile['direction'] >= angle - delta and projectile['direction'] <= angle + delta:
+            print "WILL HIT!!!"
+            return True
+
+        else:
+            print "SAFE TO GO HERE!"
+            return False
 
 
 class Point(object):
