@@ -87,7 +87,7 @@ class PathFinder(object):
         else:
             for projectile in self.projectiles:
                 if self.projectile_will_hit(next, projectile):
-                    return 10
+                    return 100
         return 1
 
     def projectile_will_hit(self, point, projectile):
