@@ -81,7 +81,13 @@ class Algorithm(object):
         self.comm.send(turret_rotate_command)
 
         # send the fire command
-        tank_fire_command = commands.getFireCommand(self.game_state.get_slow_tank_id())
+        if self.game_state.enemies_exist():
+            tank_fire_command = commands.getFireCommand(self.game_state.get_slow_tank_id())
+        else:
+            tank_fire_command = commands.getStopCommand(
+                self.game_state.get_slow_tank_id(),
+                "FIRE"
+            )
         print "SENDING: " + str(tank_fire_command)
         print self.comm.send(tank_fire_command)
 
@@ -152,7 +158,14 @@ class Algorithm(object):
         self.comm.send(turret_rotate_command)
 
         # send the fire command
-        tank_fire_command = commands.getFireCommand(self.game_state.get_fast_tank_id())
+        if self.game_state.enemies_exist():
+            tank_fire_command = commands.getFireCommand(self.game_state.get_fast_tank_id())
+        else:
+            # stop the fire command!!!
+            tank_fire_command = commands.getStopCommand(
+                self.game_state.get_fast_tank_id(),
+                'FIRE',
+            )
         print "SENDING: " + str(tank_fire_command)
         print self.comm.send(tank_fire_command)
 

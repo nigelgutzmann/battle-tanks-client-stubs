@@ -97,6 +97,9 @@ class GameState(object):
         self.__me_slow = slow_tank
 
     # FUNCTIONS USED BY THE ALGORITHM
+    def enemies_exist(self):
+        return self.__enemy_slow is not None or self.__enemy_fast is not None
+
     def get_all_projectiles(self):
         tanks = self.__get_all_tanks()
         projectiles = []
@@ -176,7 +179,7 @@ class GameState(object):
         tank = None
         position_point = Point(position[0], position[1])
         if self.__enemy_fast is not None and self.__enemy_fast['position'] == position:
-            if self.__emeny_fast_old_position and \
+            if self.__enemy_fast_old_position and \
                 abs(self.__enemy_fast['position'][0] - self.__enemy_fast_old_position[0]) < 0.1 and \
                 abs(self.__enemy_fast['position'][1] - self.__enemy_fast_old_position[1]) < 0.1:
                 # he's probably not moving, just return the same thing
