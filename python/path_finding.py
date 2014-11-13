@@ -20,10 +20,8 @@ class PathFinder(object):
         frontier.put((0, self.source,))
         came_from = {}
         cost_so_far = {}
-        #length_so_far = {}
         came_from[self.source] = None
         cost_so_far[self.source] = 0
-        #length_so_far[self.source] = 0
 
         iteration_number = 0
         while not frontier.empty():
@@ -35,11 +33,9 @@ class PathFinder(object):
                 break
 
             for next in self.get_neighbors(current):
-                #new_length = length_so_far[current] + 1
-                new_cost = cost_so_far[current] + 1#self.cost(current, next, length_so_far[current])
+                new_cost = cost_so_far[current] + self.cost(current, next)
                 if next not in cost_so_far or new_cost < cost_so_far[next]:
                     cost_so_far[next] = new_cost
-                    #length_so_far[next] = new_length
                     priority = new_cost + self.heuristic(self.target, next)
                     frontier.put((priority, next,))
                     came_from[next] = current
@@ -58,7 +54,57 @@ class PathFinder(object):
 
         path.reverse()
 
+        """for idx, node in enumerate(path):
+            print "Node: " + str(idx) + " (" + str(node.x) + ", " + str(node.y) + ")"
+        print "target: (" + str(self.target.x) + ", " + str(self.target.y) + ")"""
+
         return path
+
+    '''def get_path(self):
+        if self.map is None or len(self.map) == 0:
+            return []
+
+        frontier = PriorityQueue()
+        frontier.put((0, self.source,))
+        came_from = {}
+        cost_so_far = {}
+        length_so_far = {}
+        came_from[self.source] = None
+        cost_so_far[self.source] = 0
+        length_so_far[self.source] = 0
+
+        while not frontier.empty():
+            current = frontier.get()[1]
+
+            if abs(current.x - self.target.x) == 0 and abs(current.y - self.target.y) == 0:
+                print "FOUND TARGET"
+                break
+
+            for next in self.get_neighbors(current):
+                new_length = length_so_far[current] + 1
+                new_cost = cost_so_far[current] + 1#self.cost(current, next, length_so_far[current])
+                if next not in cost_so_far or new_cost < cost_so_far[next]:
+                    cost_so_far[next] = new_cost
+                    length_so_far[next] = new_length
+                    priority = new_cost + self.heuristic(self.target, next)
+                    frontier.put((priority, next,))
+                    came_from[next] = current
+
+        if frontier.empty():
+            print "SCANNED EVERYWHERE"
+            # choose somewhere far to go
+        else:
+            # choose somewhere we can go
+            current = self.target
+
+        path = [current]
+        while current != self.source:
+            current = came_from[current]
+            path.append(current)
+
+        path.reverse()
+
+        return path'''
 
     def get_neighbors(self, point):
         if self.map is None or len(self.map) == 0:
