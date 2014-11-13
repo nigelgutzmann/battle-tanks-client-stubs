@@ -104,11 +104,11 @@ class PathFinder(object):
         # for safety sake, just assume the radius is always the max (2m)
         delta = math.atan2(2, distance)
         if projectile['direction'] >= angle - delta and projectile['direction'] <= angle + delta:
-            print "WILL HIT!!!"
+            #print "WILL HIT!!!"
             return True
 
         else:
-            print "SAFE TO GO HERE!"
+            #print "SAFE TO GO HERE!"
             return False
 
 
