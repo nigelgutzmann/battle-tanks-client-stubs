@@ -41,12 +41,20 @@ class PathFinder(object):
                     frontier.put((priority, next,))
                     came_from[next] = current
 
-        if frontier.empty():
+        old_current = current
+
+        current = self.target
+        try:
+            came_from[current]
+        except KeyError:
+            current = old_current
+
+        """        if frontier.empty():
             print "SCANNED EVERYWHERE"
             # choose somewhere far to go
         else:
             # choose somewhere we can go
-            current = self.target
+            current = self.target"""
 
         path = [current]
         while current != self.source:
