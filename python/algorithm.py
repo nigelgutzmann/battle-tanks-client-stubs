@@ -20,14 +20,8 @@ class Algorithm(object):
         # work on the slow tank
         # find the closest enemy
         distance_to_target, position_of_target = self.game_state.get_closest_enemy_to_slow()
-        position_of_target_far = None
-        if distance_to_target < 20:
-            distance_to_target, position_of_target_far = self.game_state.get_furthest_enemy_to_slow()
 
-        if position_of_target_far is None:
-            route = self.game_state.get_route_for_slow(position_of_target)
-        else:
-            route = self.game_state.get_route_for_slow(position_of_target_far)
+        route = self.game_state.get_route_for_slow(position_of_target)
 
 
         # route has a list of Points that we should go through to get to the target
