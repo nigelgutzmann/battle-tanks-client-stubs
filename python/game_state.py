@@ -20,6 +20,8 @@ class GameState(object):
         self.__enemy_fast = None
         self.__me_slow = None
         self.__me_fast = None
+        self.__enemy_slow_old_position = None
+        self.__enemy_fast_old_position = None
 
     # FUNCTIONS TO SET UP THE MAP
     def boundaries_unset(self):
@@ -163,6 +165,58 @@ class GameState(object):
             return self.__me_fast['turret']
         else:
             return 0
+
+    def get_target_point_for_tank_at_for_slow(position):
+        tank = None
+        position_point = Point(position[0], position[1])
+        if self.__enemy_fast is not None and self.__enemy_fast['position'] == position:
+            if self.__enemy_fast_old_position and abs(self.__enemy_fast['position'] - self.__enemy_fast_old_position) < 0.1:
+                # he's probably not moving, just return the same thing
+                return position_point
+
+            # assume he's moving, set the old position for the next iteration
+            self.__enemy_fast_old_position = position
+            tank = self.__enemy_fast
+        elif self.__enemy_slow is not None and self.__enemy_slow['position'] == position:
+            if self.__enemy_slow_old_position and abs(self.__enemy_slow['position'] - self.__enemy_slow_old_position) < 0.1:
+                # he's probably not moving, just return the same thing
+                return position_point
+
+            # assume he's moving, set the old position for the next iteration
+            self.__enemy_slow_old_position = position
+            tank = self.__enemy_slow
+
+        if tank is None:
+            # there wasn't a matching tank, return the same thing
+            return position_point
+
+        return self.__get_target_point_for_tank_at(tank, self.__me_slow)
+
+
+    def __get_target_point_for_tank_at(enemy, my_tank):
+        enemy_position = Point(enemy['position'][0], enemy['position'][1])
+        my_position = Point(my_tank['position'][0], my_tank['position'][1])
+
+        # assume projectiles travel at 30m/s
+        # just use the distance between my_tank and enemy as a proxy for the distance
+        # to the final intersection
+        distance_from_target = enemy_position.distance_to(my_position)
+
+        # v = d / t --> t = d / v
+        time_to_intersect = distance_from_target / 30.0
+
+        # v = d / t --> d = t * v
+        distance_tank_can_travel = time_to_intersect * enemy['speed']
+
+        distance_tank_can_travel_x = distance_tank_can_travel * math.cos(enemy['tracks'])
+        distance_tank_can_travel_y = distance_tank_can_travel * math.sin(enemy['tracks'])
+
+        return Point(
+            enemy_position.x + distance_tank_can_travel_x,
+            enemy_position.y + distance_tank_can_travel_y
+        )
+        
+
 
     def __get_all_tanks(self):
         tank_list = [self.__me_slow, self.__me_fast, self.__enemy_slow, self.__enemy_fast]
