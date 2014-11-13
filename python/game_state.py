@@ -156,19 +156,12 @@ class GameState(object):
     def __get_route_to(self, tank, target):
         # returns a list of Points of the path that we should take
         if tank is not None:
-            projectiles = []
-            for tank in self.__get_all_tanks():
-                projectiles.extend(tank['projectiles'])
-            path_finder = PathFinder(self.__map, target, tank['position'], projectiles)
+            path_finder = PathFinder(self.__map, target, tank['position'])
             return path_finder.get_path()
         else:
             center = self.__get_center()
             center_p = Point(center[0], center[1])
             return [center_p, center_p]
-
-    def __get_all_tanks(self):
-        tank_list = [self.__me_slow, self.__me_fast, self.__enemy_slow, self.__enemy_fast]
-        return [tank for tank in tank_list if tank is not None]
 
     def __get_closest_enemy_to(self, tank):
         if tank is None:
