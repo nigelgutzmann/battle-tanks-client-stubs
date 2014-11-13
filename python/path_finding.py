@@ -1,5 +1,6 @@
 from Queue import PriorityQueue
 import math
+import random
 
 
 class PathFinder(object):
@@ -44,7 +45,10 @@ class PathFinder(object):
 
         if frontier.empty():
             print "SCANNED EVERYWHERE"
-            # choose somewhere far to go
+            if abs(current.x - self.target.x) != 0 or abs(current.y - self.target.y) != 0:
+                # we must be on the map with all the water in the middle and there is no enemy on our side
+                # go to random spots!
+                current = came_from[random.choice(came_from.keys())]
         else:
             # choose somewhere we can go
             current = self.target
