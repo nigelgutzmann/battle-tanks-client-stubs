@@ -82,7 +82,7 @@ class PathFinder(object):
         return [p for p in all_points if p is not None and self.map[p.x][p.y] < 1]
 
     def cost(self, current, next, move_number):
-        ### TODO: check if there is a danger of being shot here, and adjust accordingly
+        return 1
         if move_number > 10:
             ## hard to predict this far into the future, just ignore it
             return 1
