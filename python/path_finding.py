@@ -1,4 +1,5 @@
 from Queue import PriorityQueue
+import math
 
 
 class PathFinder(object):
@@ -83,8 +84,29 @@ class PathFinder(object):
     def cost(self, current, next, moves):
         if moves > 10:
             return 1
-        ### TODO: check if there is a danger of being shot here, and adjust accordingly
+        else:
+            for projectile in self.projectiles:
+                if self.projectile_will_hit(next, projectile):
+                    return 1
         return 1
+
+    def projectile_will_hit(point, projectile):
+        projectile_point = Point(projectile['position'][0], projectile['position'][1])
+
+        length = point.x - projectile_point.x
+        height = point.y - projectile_point.y
+
+        angle = math.atan2(height, length)
+
+        distance = point.distance_to(projectile_point)
+
+        # always use 2 (the max radius) to be safe and keep it simple :)
+        delta = math.atan2(2, distance)
+
+        if projectile['direction'] >= angle - delta && projectile['direction'] <= angle + delta:
+            return True
+        else:
+            return False
 
 
 class Point(object):
@@ -100,3 +122,6 @@ class Point(object):
 
     def toString(self):
         return "(" + str(self.x) + ", " + str(self.y) + ")"
+
+    def distance_to(self, other):
+        return math.sqrt((self.x - other.x) * (self.x - other.x) + (self.y - other.y) * (self.y - other.y))
