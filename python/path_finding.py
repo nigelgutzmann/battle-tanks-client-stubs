@@ -2,10 +2,11 @@ from Queue import PriorityQueue
 
 
 class PathFinder(object):
-    def __init__(self, mapped_area, target, source):
+    def __init__(self, mapped_area, target, source, projectiles):
         self.map = mapped_area
         self.target = Point(target[0], target[1])
         self.source = Point(source[0], source[1])
+        self.projectiles = projectiles
 
     def heuristic(self, a, b):
         return abs(a.x - b.x) + abs(a.y - b.y)

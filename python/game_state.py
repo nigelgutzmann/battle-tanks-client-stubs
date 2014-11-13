@@ -81,6 +81,10 @@ class GameState(object):
 
     def reset(self):
         self.__map = []
+        self.__me_slow = None
+        self.__me_fast = None
+        self.__enemy_fast = None
+        self.__enemy_slow = None
 
     def set_enemy_position(self, slow_tank=None, fast_tank=None):
         self.__enemy_fast = fast_tank
@@ -91,6 +95,13 @@ class GameState(object):
         self.__me_slow = slow_tank
 
     # FUNCTIONS USED BY THE ALGORITHM
+    def get_all_projectiles(self):
+        tanks = self.__get_all_tanks()
+        projectiles = []
+        for tank in tanks:
+            projectiles.extend(tank['projectiles'])
+        return projectiles
+
     def get_track_rotation_for_slow(self):
         if self.__me_slow is not None:
             return self.__me_slow['tracks']
@@ -153,10 +164,14 @@ class GameState(object):
         else:
             return 0
 
+    def __get_all_tanks(self):
+        tank_list = [self.__me_slow, self.__me_fast, self.__enemy_slow, self.__enemy_fast]
+        return [tank if tank is not None for tank in tank_list]
+
     def __get_route_to(self, tank, target):
         # returns a list of Points of the path that we should take
         if tank is not None:
-            path_finder = PathFinder(self.__map, target, tank['position'])
+            path_finder = PathFinder(self.__map, target, tank['position'], self.get_all_projectiles())
             return path_finder.get_path()
         else:
             center = self.__get_center()
