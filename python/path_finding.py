@@ -19,10 +19,10 @@ class PathFinder(object):
         frontier.put((0, self.source,))
         came_from = {}
         cost_so_far = {}
-        steps_so_far = {}
+        #steps_so_far = {}
         came_from[self.source] = None
         cost_so_far[self.source] = 0
-        steps_so_far[self.source] = 0
+        #steps_so_far[self.source] = 0
 
         while not frontier.empty():
             current = frontier.get()[1]
@@ -32,11 +32,11 @@ class PathFinder(object):
                 break
 
             for next in self.get_neighbors(current):
-                new_cost = cost_so_far[current] + self.cost(current, next, steps_so_far[current])
-                new_steps = steps_so_far[current] + 1
+                new_cost = cost_so_far[current] + self.cost(current, next, 11)
+                #new_steps = steps_so_far[current] + 1
                 if next not in cost_so_far or new_cost < cost_so_far[next]:
                     cost_so_far[next] = new_cost
-                    steps_so_far[next] = new_steps
+                    #steps_so_far[next] = new_steps
                     priority = new_cost + self.heuristic(self.target, next)
                     frontier.put((priority, next,))
                     came_from[next] = current
