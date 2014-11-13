@@ -170,7 +170,9 @@ class GameState(object):
         tank = None
         position_point = Point(position[0], position[1])
         if self.__enemy_fast is not None and self.__enemy_fast['position'] == position:
-            if self.__enemy_fast_old_position and abs(self.__enemy_fast['position'] - self.__enemy_fast_old_position) < 0.1:
+            if self.__enemy_fast_old_position and \
+                abs(self.__enemy_fast['position'][0] - self.__enemy_fast_old_position[0]) < 0.1 and \
+                abs(self.__enemy_fast['position'][1] - self.__enemy_fast_old_position[1]) < 0.1:
                 # he's probably not moving, just return the same thing
                 return position_point
 
@@ -178,7 +180,9 @@ class GameState(object):
             self.__enemy_fast_old_position = position
             tank = self.__enemy_fast
         elif self.__enemy_slow is not None and self.__enemy_slow['position'] == position:
-            if self.__enemy_slow_old_position and abs(self.__enemy_slow['position'] - self.__enemy_slow_old_position) < 0.1:
+            if self.__enemy_slow_old_position and \
+                abs(self.__enemy_slow['position'][0] - self.__enemy_slow_old_position[0]) < 0.1 and \
+                abs(self.__enemy_slow['position'][1] - self.__enemy_slow_old_position[1]) < 0.1:
                 # he's probably not moving, just return the same thing
                 return position_point
 
