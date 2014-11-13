@@ -126,7 +126,7 @@ class GameState(object):
         return self.__get_furthest_enemy_to(self.__me_slow)
 
     def get_furthest_enemy_to_fast(self):
-        return self.__get_furthest_enemy_to)self.__me_fast
+        return self.__get_furthest_enemy_to(self.__me_fast)
 
     def get_route_for_slow(self, target):
         return self.__get_route_to(self.__me_slow, target)
