@@ -122,6 +122,12 @@ class GameState(object):
     def get_closest_enemy_to_fast(self):
         return self.__get_closest_enemy_to(self.__me_fast)
 
+    def get_furthest_enemy_to_slow(self):
+        return self.__get_furthest_enemy_to(self.__me_slow)
+
+    def get_furthest_enemy_to_fast(self):
+        return self.__get_furthest_enemy_to)self.__me_fast
+
     def get_route_for_slow(self, target):
         return self.__get_route_to(self.__me_slow, target)
 
@@ -135,7 +141,7 @@ class GameState(object):
             center = self.__get_center()
             return Point(center[0], center[1])
 
-    def get_posotion_for_fast(self):
+    def get_position_for_fast(self):
         if self.__me_fast is not None:
             return Point(self.__me_fast['position'][0], self.__me_fast['position'][1])
         else:
@@ -238,6 +244,24 @@ class GameState(object):
             center = self.__get_center()
             center_p = Point(center[0], center[1])
             return [center_p, center_p]
+
+    def __get_furthest_enemy_to(self, tank):
+        if tank is None:
+            return (9999, self.__get_center())
+        elif self.__enemy_slow is None and self.__enemy_fast is None:
+            return (9999, self.__get_center())
+        elif self.__enemy_slow is None:
+            return (self.__get_direct_distance(tank, self.__enemy_fast), self.__enemy_fast['position'])
+        elif self.__enemy_fast is None:
+            return (self.__get_direct_distance(tank, self.__enemy_slow), self.__enemy_slow['position'])
+        else:
+            slow_dist = self.__get_direct_distance(tank, self.__enemy_slow)
+            fast_dist = self.__get_direct_distance(tank, self.__enemy_fast)
+            if slow_dist < fast_dist:
+                return (fast_dist, self.__enemy_fast['position'])
+            else:
+                return (slow_dist, self.__enemy_slow['position'])
+
 
     def __get_closest_enemy_to(self, tank):
         if tank is None:
