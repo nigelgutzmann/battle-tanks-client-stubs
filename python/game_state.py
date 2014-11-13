@@ -215,6 +215,9 @@ class GameState(object):
         distance_tank_can_travel_x = distance_tank_can_travel * math.cos(enemy['tracks'])
         distance_tank_can_travel_y = distance_tank_can_travel * math.sin(enemy['tracks'])
 
+        # tanks don't usually go in straight lines. try dividing by something to reduce the effect
+        distance_tank_can_travel_x = 0.75 * distance_tank_can_travel_x
+        distance_tank_can_travel_y = 0.75 * distance_tank_can_travel_y
         return Point(
             enemy_position.x + distance_tank_can_travel_x,
             enemy_position.y + distance_tank_can_travel_y
