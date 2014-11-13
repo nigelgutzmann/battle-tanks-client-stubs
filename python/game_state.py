@@ -166,7 +166,7 @@ class GameState(object):
         else:
             return 0
 
-    def get_target_point_for_tank_at_for_slow(position):
+    def get_target_point_for_tank_at_for_slow(self, position):
         tank = None
         position_point = Point(position[0], position[1])
         if self.__enemy_fast is not None and self.__enemy_fast['position'] == position:
@@ -193,7 +193,7 @@ class GameState(object):
         return self.__get_target_point_for_tank_at(tank, self.__me_slow)
 
 
-    def __get_target_point_for_tank_at(enemy, my_tank):
+    def __get_target_point_for_tank_at(self, enemy, my_tank):
         enemy_position = Point(enemy['position'][0], enemy['position'][1])
         my_position = Point(my_tank['position'][0], my_tank['position'][1])
 
