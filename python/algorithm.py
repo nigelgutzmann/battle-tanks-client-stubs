@@ -56,7 +56,8 @@ class Algorithm(object):
             # go forward
             tank_forward_command = commands.getMoveCommand(
                 self.game_state.get_slow_tank_id(),
-                10
+                10,
+                direction="REV"
             )
             #print "SENDING: " + str(tank_forward_command)
             self.comm.send(tank_forward_command)
@@ -65,7 +66,7 @@ class Algorithm(object):
             tank_forward_command = commands.getMoveCommand(
                 self.game_state.get_slow_tank_id(),
                 10,
-                direction="REV"
+                direction="FWD"
             )
             #print "SENDING: " + str(tank_forward_command)
             self.comm.send(tank_forward_command)
