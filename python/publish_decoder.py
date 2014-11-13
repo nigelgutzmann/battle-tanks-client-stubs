@@ -5,6 +5,25 @@ class PublishDecoder(object):
     def __init__(self, game_info):
         self.game_info = game_info
 
+    def quick_decode(self, message, game_state):
+        try:
+            message_data = json.loads(message)
+        except:
+            return None
+
+        if message_data['comm_type'] == "GAME_START":
+            game_state.reset()
+            return "GAME_START"
+        elif message_data['comm_type'] == "GAME_END":
+            game_state.reset()
+            return "GAME_END"
+        elif message_data['comm_type'] == "MATCH_END":
+            game_state.reset()
+            print message
+            raise Exception("GAME ENDED!!!!!!")
+        elif message_data['comm_type'] == "GAMESTATE":
+            return "GAMESTATE"
+
     def decode(self, message, game_state):
         try:
             message_data = json.loads(message)

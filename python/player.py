@@ -19,19 +19,7 @@ class Player(object):
         stop = False
         while not stop:
             # get a message
-            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
-            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
-            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
-            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
-            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
-            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
-            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
-            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
-            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
-            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
-            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
-            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
-            message = self.comm.receive(communication.Communication.Origin.PublishSocket)
+            message = self.get_message()
 
             # decode it
             decoded = self.pub_decoder.decode(message, self.game_state)
@@ -40,3 +28,23 @@ class Player(object):
             if decoded == "GAMESTATE":
                 self.algorithm.make_move(client_token)
                 #stop = True
+
+    def get_message(self):
+        exception_raised = False
+        message = None
+        while not exception_raised:
+            try:
+                message = self.comm.receive_pub_no_block()
+
+                # deal with it. if it is anything except a GAMESTATE message, we will need to reset the game
+                self.pub_decoder.quick_decode(message, self.game_state)
+
+            except:
+                exception_raised = True
+
+        if message is not None:
+            return message
+        else:
+            # there was nothing waiting for us in the queue, we will have to wait for a new message
+            # the algorithm is too speedy
+            return self.comm.receive(communication.Communication.Origin.PublishSocket)

@@ -60,6 +60,13 @@ class Communication(object):
 
         return reply
 
+    def receive_pub_no_block(self):
+        """
+        returns a message from the socket if there is one available, or raises an exception if there
+        is none available
+        """
+        return self.pub_socket.recv(zmq.NOBLOCK)
+
     def match_ended(self):
         while True:
             try:
