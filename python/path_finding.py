@@ -75,10 +75,10 @@ class PathFinder(object):
         y_len = len(self.map[0])
 
         # there can be up to 4 neighbors (for now)
-        up = Point(point.x, point.y + 1) if point.y + 4 < y_len else None
-        down = Point(point.x, point.y - 1) if point.y - 4 >= 0 else None
-        left = Point(point.x - 1, point.y) if point.x - 4 >= 0 else None
-        right = Point(point.x + 1, point.y) if point.x + 4 < x_len else None
+        up = Point(point.x, point.y + 1) if point.y + 1 < y_len else None
+        down = Point(point.x, point.y - 1) if point.y - 1 >= 0 else None
+        left = Point(point.x - 1, point.y) if point.x - 1 >= 0 else None
+        right = Point(point.x + 1, point.y) if point.x + 1 < x_len else None
 
         all_points = [up, down, left, right]
 
