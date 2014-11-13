@@ -105,7 +105,7 @@ class PathFinder(object):
         distance = point.distance_to(projectile_point)
 
         # always use 2 (the max radius) to be safe and keep it simple :)
-        delta = math.atan2(2, distance)
+        delta = math.atan2(10, distance)
 
         if projectile['direction'] >= angle - delta and projectile['direction'] <= angle + delta:
             return True
