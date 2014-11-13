@@ -103,7 +103,7 @@ class PathFinder(object):
         # always use 2 (the max radius) to be safe and keep it simple :)
         delta = math.atan2(2, distance)
 
-        if projectile['direction'] >= angle - delta && projectile['direction'] <= angle + delta:
+        if projectile['direction'] >= angle - delta and projectile['direction'] <= angle + delta:
             return True
         else:
             return False
