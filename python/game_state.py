@@ -172,6 +172,34 @@ class GameState(object):
         else:
             return 0
 
+    def get_target_point_for_tank_at_for_fast(self, position):
+        tank = None:
+        position_point = Point(position[0], position[1])
+        if self.__enemy_fast is not None and self.__enemy_fast['position'] == position:
+            if self.__emeny_fast_old_position and \
+                abs(self.__enemy_fast['position'][0] - self.__enemy_fast_old_position[0]) < 0.1 and \
+                abs(self.__enemy_fast['position'][1] - self.__enemy_fast_old_position[1]) < 0.1:
+                # he's probably not moving, just return the same thing
+                return position_point
+            # the other function (for the slow tank sets __enemy_fast_old_position and __enemy_slow_old_position)
+            # so we don't need to here
+            tank = self.__enemy_fast
+        elif self.__enemy_slow is not None and self.__enemy_slow['position'] == position:
+            if self.__enemy_slow_old_position and \
+                abs(self.__enemy_slow['position'][0] - self.__enemy_slow_old_position[0]) < 0.1 and \
+                abs(self.__enemy_slow['position'][1] - self.__enemy_slow_old_position[1]) < 0.1:
+                # he's probably not moving, just return the same thing
+                return position_point
+            # the other function (for the slow tank sets __enemy_fast_old_position and __enemy_slow_old_position)
+            # so we don't need to here
+            tank = self.__enemy_slow
+
+        if tank is None:
+            # there wasn't a matching tank, return the same thing
+            return position_point
+
+        return self.__get_target_point_for_tank_at(tank, self.__me_fast)
+
     def get_target_point_for_tank_at_for_slow(self, position):
         tank = None
         position_point = Point(position[0], position[1])
