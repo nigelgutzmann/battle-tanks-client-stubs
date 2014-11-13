@@ -166,7 +166,7 @@ class GameState(object):
 
     def __get_all_tanks(self):
         tank_list = [self.__me_slow, self.__me_fast, self.__enemy_slow, self.__enemy_fast]
-        return [tank if tank is not None for tank in tank_list]
+        return [tank for tank in tank_list if tank is not None]
 
     def __get_route_to(self, tank, target):
         # returns a list of Points of the path that we should take
