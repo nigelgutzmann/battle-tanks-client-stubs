@@ -92,10 +92,10 @@ class GameState(object):
 
     # FUNCTIONS USED BY THE ALGORITHM
     def slow_exists(self):
-        return self.__me_slow is not None
+        return self.__me_slow is not None and self.__me_slow['alive']
 
     def fast_exists(self):
-        return self.__me_fast is not None
+        return self.__me_fast is not None and self.__me_fast['alive']
 
 
     def enemies_exist(self):
@@ -265,11 +265,11 @@ class GameState(object):
 
     def __get_all_tanks(self):
         tank_list = [self.__me_slow, self.__me_fast, self.__enemy_slow, self.__enemy_fast]
-        return [tank for tank in tank_list if tank is not None]
+        return [tank for tank in tank_list if tank is not None and tank['alive']]
 
     def __get_enemies(self):
         enemies = [self.__enemy_fast, self.__enemy_slow]
-        return [tank for tank in enemies if tank is not None]
+        return [tank for tank in enemies if tank is not None and tank['alive']]
 
     def __get_route_to(self, tank, target):
         # returns a list of Points of the path that we should take

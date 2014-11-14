@@ -19,7 +19,6 @@ class PublishDecoder(object):
             return "GAME_END"
         elif message_data['comm_type'] == "MATCH_END":
             game_state.reset()
-            print message
             raise Exception("GAME ENDED!!!!!!")
         elif message_data['comm_type'] == "GAMESTATE":
             return "GAMESTATE"
@@ -27,7 +26,6 @@ class PublishDecoder(object):
     def decode(self, message, game_state):
         try:
             message_data = json.loads(message)
-            print message_data
         except:
             # sometimes it just returns the game token, which isn't json.
             # just drop it
