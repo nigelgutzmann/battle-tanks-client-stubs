@@ -45,16 +45,10 @@ class GameState(object):
                 # we initialized everything to zero already
                 return
 
-            print "Map dimensions: "  + str(len(self.__map)) + " x " + str(len(self.__map[0]))
             x_start = int(round(ter['boundingBox']['corner'][0], 0))
             y_start = int(round(ter['boundingBox']['corner'][1], 0))
             x_len = int(round(ter['boundingBox']['size'][0], 0))
             y_len = int(round(ter['boundingBox']['size'][1], 0))
-
-            print x_start
-            print y_start
-            print x_len
-            print y_len
 
             for x in range(x_len):
                 for y in range(y_len):
@@ -97,6 +91,13 @@ class GameState(object):
         self.__me_slow = slow_tank
 
     # FUNCTIONS USED BY THE ALGORITHM
+    def slow_exists(self):
+        return self.__me_slow is not None
+
+    def fast_exists(self):
+        return self.__me_fast is not None
+
+
     def enemies_exist(self):
         return self.__enemy_slow is not None or self.__enemy_fast is not None
 
