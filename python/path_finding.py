@@ -76,10 +76,10 @@ class PathFinder(object):
         y_len = len(self.map[0])
 
         # there can be up to 4 neighbors (for now)
-        up = Point(point.x, point.y + 2) if point.y + 2 < y_len else None
-        down = Point(point.x, point.y - 2) if point.y - 2 >= 0 else None
-        left = Point(point.x - 2, point.y) if point.x - 2 >= 0 else None
-        right = Point(point.x + 2, point.y) if point.x + 2 < x_len else None
+        up = Point(point.x, point.y + 1) if point.y + 1 < y_len else None
+        down = Point(point.x, point.y - 1) if point.y - 1 >= 0 else None
+        left = Point(point.x - 1, point.y) if point.x - 1 >= 0 else None
+        right = Point(point.x + 1, point.y) if point.x + 1 < x_len else None
 
         all_points = [up, down, left, right]
 
@@ -94,8 +94,9 @@ class PathFinder(object):
             for projectile in self.projectiles:
                 if self.projectile_will_hit(next, projectile):
                     cost = cost + 1000
-            for enemy in self.enemies:
-                cost = cost + self.closeness_to(enemy, next)
+            # this is too expensive
+            #for enemy in self.enemies:
+            #    cost = cost + self.closeness_to(enemy, next)
         return cost
 
     def closeness_to(self, enemy, point):
