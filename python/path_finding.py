@@ -34,6 +34,10 @@ class PathFinder(object):
                 print "FOUND TARGET"
                 break
 
+            if len(came_from) > 1000:
+                print "Didn't find anything but breaking anyways"
+                break
+
             #if len(came_from) > 2000:
             #    raise Exception('too many iterations')
 
