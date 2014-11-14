@@ -102,7 +102,7 @@ class PathFinder(object):
         enemy_point = Point(enemy['position'][0], enemy['position'][1])
 
         dist = enemy_point.distance_to(point)
-        if dist = 0:
+        if dist == 0:
             return 1000
         else:
             return 100.0 / dist
