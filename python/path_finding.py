@@ -102,8 +102,10 @@ class PathFinder(object):
         enemy_point = Point(enemy['position'][0], enemy['position'][1])
 
         dist = enemy_point.distance_to(point)
-
-        return 100.0 / dist
+        if dist = 0:
+            return 1000
+        else:
+            return 100.0 / dist
 
     def projectile_will_hit(self, point, projectile):
         projectile_point = Point(projectile['position'][0], projectile['position'][1])
