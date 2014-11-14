@@ -1,12 +1,18 @@
 from command import Command
 import math
 from path_finding import Point
+import threading
+import copy
 
 
-class Algorithm(object):
-    def __init__(self, game_state, comm):
-        self.game_state = game_state
+class Algorithm(threading.Thread):
+    def __init__(self, comm, comm_lock, real_game_state, game_state_lock):
         self.comm = comm
+        self.comm_lock = comm_lock
+        self.real_game_state = real_game_state
+        self.game_state = None
+        self.game_state_lock = game_state_lock
+        self.copy_real_game_state()
 
     def make_move(self, client_token):
         '''
@@ -21,13 +27,13 @@ class Algorithm(object):
                     self.game_state.get_slow_tank_id(),
                     'FIRE',
                 )
-            self.comm.send(stop_command)
+            self.send_command(stop_command)
         if self.game_state.fast_exists() and not self.game_state.enemies_exist():
             stop_command = commands.getStopCommand(
                 self.game_state.get_fast_tank_id(),
                 'FIRE',
             )
-            self.comm.send(stop_command)
+            self.send_command(stop_command)
 
         # work on the slow tank
         # find the closest enemy
@@ -62,7 +68,7 @@ class Algorithm(object):
                     self.game_state.get_slow_tank_id(),
                     target_angle - my_rotation
                 )
-                self.comm.send(tank_rotate_command)
+                self.send_command(tank_rotate_command)
 
                 # go forward
                 tank_forward_command = commands.getMoveCommand(
@@ -71,7 +77,7 @@ class Algorithm(object):
                     direction="REV"
                 )
                 #print "SENDING: " + str(tank_forward_command)
-                self.comm.send(tank_forward_command)
+                self.send_command(tank_forward_command)
 
             else:
                 tank_forward_command = commands.getMoveCommand(
@@ -80,7 +86,7 @@ class Algorithm(object):
                     direction="FWD"
                 )
                 #print "SENDING: " + str(tank_forward_command)
-                self.comm.send(tank_forward_command)
+                self.send_command(tank_forward_command)
 
             # get the turret rotation
             target_point = self.game_state.get_target_point_for_tank_at_for_slow(position_of_target)
@@ -88,7 +94,7 @@ class Algorithm(object):
             turret_angle = self.__get_target_angle(route[0], target_point)
             change_turret_angle = turret_angle - self.game_state.get_slow_tank_turret_angle()
             turret_rotate_command = commands.getTurretRotateCommand(self.game_state.get_slow_tank_id(), change_turret_angle)
-            self.comm.send(turret_rotate_command)
+            self.send_command(turret_rotate_command)
 
             # send the fire command
             if self.game_state.enemies_exist() and change_turret_angle < math.pi / 6:
@@ -98,7 +104,7 @@ class Algorithm(object):
                     self.game_state.get_slow_tank_id(),
                     "FIRE"
                 )
-            self.comm.send(tank_fire_command)
+            self.send_command(tank_fire_command)
 
         #############################
         #                           #
@@ -134,7 +140,7 @@ class Algorithm(object):
                     self.game_state.get_fast_tank_id(),
                     target_angle - my_rotation
                 )
-                self.comm.send(tank_rotate_command)
+                self.send_command(tank_rotate_command)
 
                 # go forward
                 tank_forward_command = commands.getMoveCommand(
@@ -143,7 +149,7 @@ class Algorithm(object):
                     direction="REV"
                 )
                 #print "SENDING: " + str(tank_forward_command)
-                self.comm.send(tank_forward_command)
+                self.send_command(tank_forward_command)
 
             else:
                 tank_forward_command = commands.getMoveCommand(
@@ -152,7 +158,7 @@ class Algorithm(object):
                     direction="FWD"
                 )
                 #print "SENDING: " + str(tank_forward_command)
-                self.comm.send(tank_forward_command)
+                self.send_command(tank_forward_command)
 
             # get the turret rotation
             target_point = self.game_state.get_target_point_for_tank_at_for_fast(position_of_target)
@@ -160,7 +166,7 @@ class Algorithm(object):
             turret_angle = self.__get_target_angle(route[0], target_point)
             change_turret_angle = turret_angle - self.game_state.get_fast_tank_turret_angle()
             turret_rotate_command = commands.getTurretRotateCommand(self.game_state.get_fast_tank_id(), change_turret_angle)
-            self.comm.send(turret_rotate_command)
+            self.send_command(turret_rotate_command)
 
             # send the fire command
             if self.game_state.enemies_exist() and change_turret_angle < math.pi / 6:
@@ -171,7 +177,7 @@ class Algorithm(object):
                     self.game_state.get_fast_tank_id(),
                     'FIRE',
                 )
-            self.comm.send(tank_fire_command)
+            self.send_command(tank_fire_command)
 
 
     def __get_target_angle(self, my_point, target):
@@ -186,3 +192,13 @@ class Algorithm(object):
         if target_angle > 2 * math.pi:
             target_angle = target_angle - 2 * math.pi
         return target_angle
+
+    def send_command(self, command):
+        self.comm_lock.acquire()
+        self.comm.send(command)
+        self.comm_lock.release()
+
+    def copy_real_game_state(self):
+        self.game_state_lock.acquire()
+        self.game_state = copy.deepcopy(self.real_game_state)
+        self.game_state_lock.release()

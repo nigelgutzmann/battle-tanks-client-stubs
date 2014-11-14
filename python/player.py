@@ -3,7 +3,7 @@ import communication
 from publish_decoder import PublishDecoder
 from game_state import GameState
 from algorithm import Algorithm
-
+import threading
 
 class Player(object):
     def __init__(self, comm, game_info):
@@ -12,11 +12,14 @@ class Player(object):
         self.game_info = game_info
         self.pub_decoder = PublishDecoder(game_info)
         self.game_state = GameState()
-        self.algorithm = Algorithm(self.game_state, self.comm)
+        self.comm_lock = threading.Lock()
+        self.game_state_lock = threading.Lock()
+        self.algorithm = Algorithm(self.comm, self.comm_lock, self.game_state, self.game_state_lock)
 
     def play_game(self, client_token):
         # TODO: later, we will want to spawn two threads here
         stop = False
+
         while not stop:
             # get a message
             message = self.get_message()
