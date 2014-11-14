@@ -32,8 +32,10 @@ class Algorithm(object):
 
             # the first point is the point that we are currently at, so we have to take the second one in the list
             next_point = None
-            #if len(route) > 4:
-            #    next_point = route[3]
+            if len(route) > 200:
+                next_point = route[100]
+            elif len(route) > 4:
+                next_point = route[3]
             if len(route) > 3:
                 next_point = route[2]
             elif len(route) > 2:
