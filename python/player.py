@@ -2,7 +2,8 @@ import command
 import communication
 from publish_decoder import PublishDecoder
 from game_state import GameState
-from algorithm import Algorithm
+from algorithm_fast import AlgorithmFast
+from algorithm_slow import AlgorithmSlow
 import threading
 
 class Player(object):
@@ -15,24 +16,25 @@ class Player(object):
         self.comm_lock = threading.Lock()
         self.game_state_lock = threading.Lock()
         self.client_token = client_token
-        self.algorithm = Algorithm(self.comm, self.comm_lock, self.game_state, self.game_state_lock, self.client_token)
+        self.algorithm_slow = AlgorithmSlow(self.comm, self.comm_lock, self.game_state, self.game_state_lock, self.client_token)
+        self.algorithm_fast = AlgorithmFast(self.comm, self.comm_lock, self.game_state, self.game_state_lock, self.client_token)
 
     def play_game(self):
         print "STARTING play_game"
         stop = False
-        self.algorithm.daemon = True
-        self.algorithm.start()
+        self.algorithm_slow.daemon = True
+        self.algorithm_slow.start()
+        self.algorithm_fast.daemon = True
+        self.algorithm_fast.start()
+
         while not stop:
             # get a message
             message = self.get_message()
 
             # decode it
-            print "Acquiring the game_state_lock in play_game"
             self.game_state_lock.acquire()
-            print "Acquired the game_state_lock in play_game"
             decoded = self.pub_decoder.decode(message, self.game_state)
             self.game_state_lock.release()
-            print "released the game_state_lock in play_game"
 
 
     def get_message(self):
