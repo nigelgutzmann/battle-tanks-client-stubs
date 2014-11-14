@@ -201,11 +201,17 @@ class Algorithm(threading.Thread):
         return target_angle
 
     def send_command(self, command):
+        print "acquiring the comm_lock in send_command"
         self.comm_lock.acquire()
+        print "acquired the comm_lock in send_command"
         self.comm.send(command)
         self.comm_lock.release()
+        print "released the comm_lock in send_command"
 
     def copy_real_game_state(self):
+        print "acquiring the game_state_lock in copy_real_game_state"
         self.game_state_lock.acquire()
+        print "acquired the game_state_lock in copy_real_game_state"
         self.game_state = copy.deepcopy(self.real_game_state)
         self.game_state_lock.release()
+        print "released the game_state_lock in copy_real_game_state"

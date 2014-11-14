@@ -26,9 +26,12 @@ class Player(object):
             message = self.get_message()
 
             # decode it
+            print "Acquiring the game_state_lock in play_game"
             self.game_state_lock.acquire()
+            print "Acquired the game_state_lock in play_game"
             decoded = self.pub_decoder.decode(message, self.game_state)
             self.game_state_lock.release()
+            print "released the game_state_lock in play_game"
 
 
     def get_message(self):
