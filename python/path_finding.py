@@ -90,10 +90,20 @@ class PathFinder(object):
         if moves > 20:  # if the algorithm is too slow, we might have to lower this value
             return 1
         else:
+            cost = 1
             for projectile in self.projectiles:
                 if self.projectile_will_hit(next, projectile):
-                    return 1000
-        return 1
+                    cost = cost + 1000
+            for enemy in self.enemies:
+                cost = cost + self.closeness_to(enemy, next)
+        return cost
+
+    def closeness_to(enemy, point):
+        enemy_point = Point(enemy['position'][0], enemy['position'][1])
+
+        dist = enemy_point.distance_to(point)
+
+        return 100.0 / dist
 
     def projectile_will_hit(self, point, projectile):
         projectile_point = Point(projectile['position'][0], projectile['position'][1])
