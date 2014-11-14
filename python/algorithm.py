@@ -15,29 +15,19 @@ class Algorithm(object):
 
         commands = Command(client_token)
 
-        # send the fire command
-        if self.game_state.fast_exists():
-            if self.game_state.enemies_exist() and change_turret_angle < math.pi / 6:
-                tank_fire_command = commands.getFireCommand(self.game_state.get_fast_tank_id())
-            else:
-                # stop the fire command!!!
-                tank_fire_command = commands.getStopCommand(
-                    self.game_state.get_fast_tank_id(),
+        # stop firing asap if possible:
+        if self.game_state.slow_exists() and not self.game_state.enemies_exist():
+            stop_command = commands.getStopCommand(
+                    self.game_state.get_slow_tank_id(),
                     'FIRE',
                 )
-            self.comm.send(tank_fire_command)
-        if self.game_state.slow_exists():
-            # send the fire command
-            if self.game_state.enemies_exist() and change_turret_angle < math.pi / 6:
-                tank_fire_command = commands.getFireCommand(self.game_state.get_slow_tank_id())
-            else:
-                tank_fire_command = commands.getStopCommand(
-                    self.game_state.get_slow_tank_id(),
-                    "FIRE"
-                )
-            self.comm.send(tank_fire_command)
-
-        # Let's just try to drive around first
+            self.comm.send(stop_command)
+        if self.game_state.fast_exists() and not self.game_state.enemies_exist():
+            stop_command = commands.getStopCommand(
+                self.game_state.get_fast_tank_id(),
+                'FIRE',
+            )
+            self.comm.send(stop_command)
 
         # work on the slow tank
         # find the closest enemy
@@ -56,7 +46,7 @@ class Algorithm(object):
             next_point = None
             if len(route) > 200:
                 next_point = route[100]
-            elif len(route) > 4:
+            if len(route) > 4:
                 next_point = route[3]
             if len(route) > 3:
                 next_point = route[2]
@@ -100,7 +90,15 @@ class Algorithm(object):
             turret_rotate_command = commands.getTurretRotateCommand(self.game_state.get_slow_tank_id(), change_turret_angle)
             self.comm.send(turret_rotate_command)
 
-            
+            # send the fire command
+            if self.game_state.enemies_exist() and change_turret_angle < math.pi / 6:
+                tank_fire_command = commands.getFireCommand(self.game_state.get_slow_tank_id())
+            else:
+                tank_fire_command = commands.getStopCommand(
+                    self.game_state.get_slow_tank_id(),
+                    "FIRE"
+                )
+            self.comm.send(tank_fire_command)
 
         #############################
         #                           #
@@ -164,6 +162,16 @@ class Algorithm(object):
             turret_rotate_command = commands.getTurretRotateCommand(self.game_state.get_fast_tank_id(), change_turret_angle)
             self.comm.send(turret_rotate_command)
 
+            # send the fire command
+            if self.game_state.enemies_exist() and change_turret_angle < math.pi / 6:
+                tank_fire_command = commands.getFireCommand(self.game_state.get_fast_tank_id())
+            else:
+                # stop the fire command!!!
+                tank_fire_command = commands.getStopCommand(
+                    self.game_state.get_fast_tank_id(),
+                    'FIRE',
+                )
+            self.comm.send(tank_fire_command)
 
 
     def __get_target_angle(self, my_point, target):
