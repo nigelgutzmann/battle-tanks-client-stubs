@@ -27,6 +27,8 @@ class PathFinder(object):
         cost_so_far[self.source] = 0
         moves_so_far[self.source] = 0
 
+        interrupted = False
+
         while not frontier.empty():
             current = frontier.get()[1]
 
@@ -51,7 +53,7 @@ class PathFinder(object):
                     frontier.put((priority, next,))
                     came_from[next] = current
 
-        if frontier.empty():
+        if frontier.empty() or interrupted:
             print "SCANNED EVERYWHERE"
             print "TARGET WASSSSSSSSS:::: ------>" + self.target.toString()
             if abs(current.x - self.target.x) != 0 or abs(current.y - self.target.y) != 0:
