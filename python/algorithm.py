@@ -7,6 +7,7 @@ import copy
 
 class Algorithm(threading.Thread):
     def __init__(self, comm, comm_lock, real_game_state, game_state_lock):
+        threading.Thread.__init__(self)
         self.comm = comm
         self.comm_lock = comm_lock
         self.real_game_state = real_game_state
