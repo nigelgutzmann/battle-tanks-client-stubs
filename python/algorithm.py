@@ -19,7 +19,7 @@ class Algorithm(threading.Thread):
         here's what really matters...
         '''
 
-            commands = Command(client_token)
+        commands = Command(client_token)
 
         while True:
             if self.game_state = None:
