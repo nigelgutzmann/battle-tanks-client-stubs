@@ -37,6 +37,7 @@ class PathFinder(object):
                 break
 
             if len(came_from) > 1000:
+                interrupted = True
                 print "Didn't find anything but breaking anyways"
                 break
 
