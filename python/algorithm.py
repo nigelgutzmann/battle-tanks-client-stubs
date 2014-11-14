@@ -15,6 +15,28 @@ class Algorithm(object):
 
         commands = Command(client_token)
 
+        # send the fire command
+        if self.game_state.fast_exists():
+            if self.game_state.enemies_exist() and change_turret_angle < math.pi / 6:
+                tank_fire_command = commands.getFireCommand(self.game_state.get_fast_tank_id())
+            else:
+                # stop the fire command!!!
+                tank_fire_command = commands.getStopCommand(
+                    self.game_state.get_fast_tank_id(),
+                    'FIRE',
+                )
+            self.comm.send(tank_fire_command)
+        if self.game_state.slow_exists():
+            # send the fire command
+            if self.game_state.enemies_exist() and change_turret_angle < math.pi / 6:
+                tank_fire_command = commands.getFireCommand(self.game_state.get_slow_tank_id())
+            else:
+                tank_fire_command = commands.getStopCommand(
+                    self.game_state.get_slow_tank_id(),
+                    "FIRE"
+                )
+            self.comm.send(tank_fire_command)
+
         # Let's just try to drive around first
 
         # work on the slow tank
@@ -78,15 +100,7 @@ class Algorithm(object):
             turret_rotate_command = commands.getTurretRotateCommand(self.game_state.get_slow_tank_id(), change_turret_angle)
             self.comm.send(turret_rotate_command)
 
-            # send the fire command
-            if self.game_state.enemies_exist() and change_turret_angle < math.pi / 6:
-                tank_fire_command = commands.getFireCommand(self.game_state.get_slow_tank_id())
-            else:
-                tank_fire_command = commands.getStopCommand(
-                    self.game_state.get_slow_tank_id(),
-                    "FIRE"
-                )
-            self.comm.send(tank_fire_command)
+            
 
         #############################
         #                           #
@@ -150,16 +164,6 @@ class Algorithm(object):
             turret_rotate_command = commands.getTurretRotateCommand(self.game_state.get_fast_tank_id(), change_turret_angle)
             self.comm.send(turret_rotate_command)
 
-            # send the fire command
-            if self.game_state.enemies_exist() and change_turret_angle < math.pi / 6:
-                tank_fire_command = commands.getFireCommand(self.game_state.get_fast_tank_id())
-            else:
-                # stop the fire command!!!
-                tank_fire_command = commands.getStopCommand(
-                    self.game_state.get_fast_tank_id(),
-                    'FIRE',
-                )
-            self.comm.send(tank_fire_command)
 
 
     def __get_target_angle(self, my_point, target):
