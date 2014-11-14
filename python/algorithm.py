@@ -18,6 +18,7 @@ class Algorithm(threading.Thread):
         '''
         here's what really matters...
         '''
+        print "STARTING run()"
 
         commands = Command(client_token)
 

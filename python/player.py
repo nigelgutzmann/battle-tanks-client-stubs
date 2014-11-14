@@ -17,16 +17,18 @@ class Player(object):
         self.algorithm = Algorithm(self.comm, self.comm_lock, self.game_state, self.game_state_lock)
 
     def play_game(self, client_token):
-        # TODO: later, we will want to spawn two threads here
+        print "STARTING play_game"
         stop = False
-
+        self.algorithm.deamon = True
         self.algorithm.run(client_token)
         while not stop:
             # get a message
             message = self.get_message()
 
             # decode it
+            self.game_state_lock.acquire()
             decoded = self.pub_decoder.decode(message, self.game_state)
+            self.game_state_lock.release()
 
 
     def get_message(self):
