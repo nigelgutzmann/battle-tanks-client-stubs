@@ -77,7 +77,7 @@ class Algorithm(object):
             self.comm.send(turret_rotate_command)
 
             # send the fire command
-            if self.game_state.enemies_exist():
+            if self.game_state.enemies_exist() and change_turret_angle < math.pi / 6:
                 tank_fire_command = commands.getFireCommand(self.game_state.get_slow_tank_id())
             else:
                 tank_fire_command = commands.getStopCommand(
@@ -149,7 +149,7 @@ class Algorithm(object):
             self.comm.send(turret_rotate_command)
 
             # send the fire command
-            if self.game_state.enemies_exist():
+            if self.game_state.enemies_exist() and change_turret_angle < math.pi / 6:
                 tank_fire_command = commands.getFireCommand(self.game_state.get_fast_tank_id())
             else:
                 # stop the fire command!!!
