@@ -97,7 +97,6 @@ class GameState(object):
     def fast_exists(self):
         return self.__me_fast is not None and self.__me_fast['alive']
 
-
     def enemies_exist(self):
         return self.__enemy_slow is not None or self.__enemy_fast is not None
 
@@ -265,7 +264,7 @@ class GameState(object):
 
     def __get_all_tanks(self):
         tank_list = [self.__me_slow, self.__me_fast, self.__enemy_slow, self.__enemy_fast]
-        return [tank for tank in tank_list if tank is not None and tank['alive']]
+        return [tank for tank in tank_list if tank is not None]
 
     def __get_enemies(self):
         enemies = [self.__enemy_fast, self.__enemy_slow]
@@ -298,17 +297,19 @@ class GameState(object):
             else:
                 return (slow_dist, self.__enemy_slow['position'])
 
+    def __tank_exists(self, tank):
+        return tank is not None and tank['alive']
 
     def __get_closest_enemy_to(self, tank):
         if tank is None:
             # force the tank to go to the center
             return (9999, self.__get_center())
-        elif self.__enemy_slow is None and self.__enemy_fast is None:
+        elif not self.__tank_exists(self.__enemy_slow) and not self.__tank_exists(self.__enemy_fast):
             # force the tank to go to the center
             return (9999, self.__get_center())
-        elif self.__enemy_slow is None:
+        elif not self.__tank_exists(self.__enemy_slow):
             return (self.__get_direct_distance(tank, self.__enemy_fast), self.__enemy_fast['position'])
-        elif self.__enemy_fast is None:
+        elif not self__tank_exists(self.__enemy_fast):
             return (self.__get_direct_distance(tank, self.__enemy_slow), self.__enemy_slow['position'])
         else:
             slow_dist = self.__get_direct_distance(tank, self.__enemy_slow)
