@@ -55,6 +55,7 @@ class PathFinder(object):
             current = self.target
 
         path = [current]
+        print "NUMBER OF POINTS VISITED: " + str(len(came_from))
         while current != self.source:
             current = came_from[current]
             path.append(current)
