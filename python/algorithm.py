@@ -22,7 +22,7 @@ class Algorithm(threading.Thread):
         commands = Command(client_token)
 
         while True:
-            if self.game_state = None:
+            if self.game_state == None:
                 print "GAME STATE IS NONE!!!!"
                 continue
 
