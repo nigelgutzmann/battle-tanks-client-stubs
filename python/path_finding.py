@@ -46,6 +46,7 @@ class PathFinder(object):
 
         if frontier.empty():
             print "SCANNED EVERYWHERE"
+            print "TARGET WASSSSSSSSS:::: ------>" + self.target.toString()
             if abs(current.x - self.target.x) != 0 or abs(current.y - self.target.y) != 0:
                 # we must be on the map with all the water in the middle and there is no enemy on our side
                 # go to random spots!
