@@ -26,7 +26,13 @@ class Player(object):
 
             # decide what to do
             if decoded == "GAMESTATE":
-                self.algorithm.make_move(client_token)
+                try:
+                    self.algorithm.make_move(client_token)
+                except Exception as e:
+                    if len(e.args) == 1 and e.args[0] == 'too many iterations':
+                        continue
+                    else:
+                        raise
                 #stop = True
 
     def get_message(self):

@@ -34,6 +34,9 @@ class PathFinder(object):
                 print "FOUND TARGET"
                 break
 
+            if len(came_from) > 2000:
+                raise Exception('too many iterations')
+
             for next in self.get_neighbors(current):
                 new_cost = cost_so_far[current] + self.cost(current, next, moves_so_far[current])
                 new_moves = moves_so_far[current] + 1
