@@ -92,7 +92,7 @@ class PathFinder(object):
         return [p for p in all_points if p is not None and self.map[p.x][p.y] < 1]
 
     def cost(self, current, next, moves):
-        if moves > 10:  # if the algorithm is too slow, we might have to lower this value
+        if moves > 100:  # if the algorithm is too slow, we might have to lower this value
             return 1
         else:
             cost = 1
