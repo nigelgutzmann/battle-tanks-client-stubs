@@ -50,7 +50,7 @@ class Client(object):
         self.game_info = gameinfo.GameInfo(opts.team_name, opts.match_token, opts.team_password)
         self.cmd = command.Command()
         self.comm = communication.Communication(opts.host_name)
-        self.player = player.Player(self.comm, self.game_info)
+        self.player = None
 
     def run(self):
         """
@@ -69,7 +69,8 @@ class Client(object):
         print 'Received client token... %s' % self.game_info.client_token
         print 'Starting game...'
 
-        self.player.play_game(self.game_info.client_token)
+        self.player =  player.Player(self.comm, self.game_info, self.game_info.client_token)
+        self.player.play_game()
 
         print 'Exiting...'
         exit()

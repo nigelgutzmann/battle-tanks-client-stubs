@@ -6,7 +6,7 @@ from algorithm import Algorithm
 import threading
 
 class Player(object):
-    def __init__(self, comm, game_info):
+    def __init__(self, comm, game_info, client_token):
         self.commands = command.Command()
         self.comm = comm
         self.game_info = game_info
@@ -14,13 +14,14 @@ class Player(object):
         self.game_state = GameState()
         self.comm_lock = threading.Lock()
         self.game_state_lock = threading.Lock()
-        self.algorithm = Algorithm(self.comm, self.comm_lock, self.game_state, self.game_state_lock)
+        self.client_token = client_token
+        self.algorithm = Algorithm(self.comm, self.comm_lock, self.game_state, self.game_state_lock, self.client_token)
 
-    def play_game(self, client_token):
+    def play_game(self):
         print "STARTING play_game"
         stop = False
-        self.algorithm.deamon = True
-        self.algorithm.run(client_token)
+        self.algorithm.daemon = True
+        self.algorithm.start()
         while not stop:
             # get a message
             message = self.get_message()

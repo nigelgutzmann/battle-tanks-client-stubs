@@ -6,7 +6,7 @@ import copy
 
 
 class Algorithm(threading.Thread):
-    def __init__(self, comm, comm_lock, real_game_state, game_state_lock):
+    def __init__(self, comm, comm_lock, real_game_state, game_state_lock, client_token):
         threading.Thread.__init__(self)
         self.comm = comm
         self.comm_lock = comm_lock
@@ -14,14 +14,15 @@ class Algorithm(threading.Thread):
         self.game_state = None
         self.game_state_lock = game_state_lock
         self.copy_real_game_state()
+        self.client_token = client_token
 
-    def run(self, client_token):
+    def run(self):
         '''
         here's what really matters...
         '''
         print "STARTING run()"
 
-        commands = Command(client_token)
+        commands = Command(self.client_token)
 
         while True:
             if self.game_state == None:
