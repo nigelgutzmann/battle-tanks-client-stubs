@@ -98,7 +98,7 @@ class PathFinder(object):
                 cost = cost + self.closeness_to(enemy, next)
         return cost
 
-    def closeness_to(enemy, point):
+    def closeness_to(self, enemy, point):
         enemy_point = Point(enemy['position'][0], enemy['position'][1])
 
         dist = enemy_point.distance_to(point)
