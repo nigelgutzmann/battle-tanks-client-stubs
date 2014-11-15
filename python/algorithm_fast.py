@@ -24,7 +24,6 @@ class AlgorithmFast(threading.Thread):
 
         commands = Command(self.client_token)
         stop = False
-        count = 0
         while not stop:
             if self.game_state is None:
                 print "GAME STATE IS NONE!!!!"
@@ -54,6 +53,7 @@ class AlgorithmFast(threading.Thread):
                 #    next_point = route[3]
                 if len(route) > 3:
                     next_point = route[2]
+                    stop = True
                 elif len(route) > 2:
                     next_point = route[1]
 
@@ -115,10 +115,6 @@ class AlgorithmFast(threading.Thread):
                         'FIRE',
                     )
                 self.send_command(tank_fire_command)
-
-                count = count + 1
-                if count > 10:
-                    stop = True
 
     def __get_target_angle(self, my_point, target):
 
