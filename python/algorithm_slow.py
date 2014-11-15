@@ -65,23 +65,15 @@ class AlgorithmSlow(threading.Thread):
                     )
                     self.send_command(tank_rotate_command)
 
-                    # go forward
-                    tank_forward_command = commands.getMoveCommand(
-                        self.game_state.get_slow_tank_id(),
-                        10,
-                        direction="REV"
-                    )
-                    #print "SENDING: " + str(tank_forward_command)
-                    self.send_command(tank_forward_command)
-
                 else:
-                    tank_forward_command = commands.getMoveCommand(
-                        self.game_state.get_slow_tank_id(),
-                        10,
-                        direction="FWD"
-                    )
-                    #print "SENDING: " + str(tank_forward_command)
-                    self.send_command(tank_forward_command)
+                    pass
+                    """tank_forward_command = commands.getMoveCommand(
+                            self.game_state.get_slow_tank_id(),
+                            10,
+                            direction="FWD"
+                        )
+                        #print "SENDING: " + str(tank_forward_command)
+                        self.send_command(tank_forward_command)"""
 
     def __get_target_angle(self, my_point, target):
 

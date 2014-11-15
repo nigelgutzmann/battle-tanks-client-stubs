@@ -70,6 +70,23 @@ class AlgorithmAiming(threading.Thread):
                     )
                 self.send_command(tank_fire_command)
 
+                tank_forward_command = commands.getMoveCommand(
+                    self.game_state.get_fast_tank_id(),
+                    10,
+                    direction="REV"
+                )
+                #print "SENDING: " + str(tank_forward_command)
+                self.send_command(tank_forward_command)
+
+                # go forward
+                tank_forward_command = commands.getMoveCommand(
+                    self.game_state.get_slow_tank_id(),
+                    10,
+                    direction="REV"
+                )
+                #print "SENDING: " + str(tank_forward_command)
+                self.send_command(tank_forward_command)
+
             if self.game_state.slow_exists():
                 distance_to_target, position_of_target = self.game_state.get_closest_enemy_to_slow()
 
