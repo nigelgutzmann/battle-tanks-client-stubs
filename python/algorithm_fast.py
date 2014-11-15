@@ -86,8 +86,8 @@ class AlgorithmFast(threading.Thread):
                     self.send_command(tank_forward_command)
 
                 # get the turret rotation
-                target_point = self.game_state.get_target_point_for_tank_at_for_fast(position_of_target)
-                #target_point = Point(position_of_target[0], position_of_target[1])
+                #target_point = self.game_state.get_target_point_for_tank_at_for_fast(position_of_target)
+                target_point = Point(position_of_target[0], position_of_target[1])
                 turret_angle = self.__get_target_angle(route[0], target_point)
                 change_turret_angle = turret_angle - self.game_state.get_fast_tank_turret_angle()
 
