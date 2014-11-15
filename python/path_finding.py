@@ -36,7 +36,7 @@ class PathFinder(object):
                 print "FOUND TARGET"
                 break
 
-            if len(came_from) > 2000:
+            if len(came_from) > 400:
                 interrupted = True
                 print "Didn't find anything but breaking anyways"
                 break
@@ -70,8 +70,8 @@ class PathFinder(object):
 
         path.reverse()
 
-        """for idx, node in enumerate(path):
-            print "Node: " + str(idx) + node.toString()"""
+        for idx, node in enumerate(path):
+            print "Node: " + str(idx) + node.toString()
 
         print "Source: " + self.source.toString()
         print "Target: " + self.target.toString()
