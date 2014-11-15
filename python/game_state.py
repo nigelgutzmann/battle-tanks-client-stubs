@@ -309,7 +309,7 @@ class GameState(object):
             return (9999, self.__get_center())
         elif not self.__tank_exists(self.__enemy_slow):
             return (self.__get_direct_distance(tank, self.__enemy_fast), self.__enemy_fast['position'])
-        elif not self__tank_exists(self.__enemy_fast):
+        elif not self.__tank_exists(self.__enemy_fast):
             return (self.__get_direct_distance(tank, self.__enemy_slow), self.__enemy_slow['position'])
         else:
             slow_dist = self.__get_direct_distance(tank, self.__enemy_slow)
