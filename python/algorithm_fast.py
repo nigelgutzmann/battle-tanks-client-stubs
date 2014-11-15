@@ -117,12 +117,9 @@ class AlgorithmFast(threading.Thread):
                 self.send_command(tank_fire_command)
 
     def __get_target_angle(self, my_point, target):
-
         delta_x = target.x - my_point.x
         delta_y = target.y - my_point.y
-
         target_angle = math.atan2(delta_y, delta_x)
-
         if target_angle < 0:
             target_angle = target_angle + 2 * math.pi
         if target_angle > 2 * math.pi:
