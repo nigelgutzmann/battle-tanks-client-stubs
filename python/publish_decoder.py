@@ -73,10 +73,6 @@ class PublishDecoder(object):
             enemy_fast = self.__get_fast(other_team)
 
             # save the data
-            print "our slow: " + str(our_slow)
-            print "our fast: " + str(our_fast)
-            print "enemy slow" + str(enemy_fast)
-            print "enemy fast " + str(enemy_fast)
             game_state.set_enemy_position(slow_tank=enemy_slow, fast_tank=enemy_fast)
             game_state.set_my_position(slow_tank=our_slow, fast_tank=our_fast)
 
