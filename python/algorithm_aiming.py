@@ -5,7 +5,7 @@ import threading
 import copy
 
 
-class AlgorithmFast(threading.Thread):
+class AlgorithmAiming(threading.Thread):
     def __init__(self, comm, comm_lock, real_game_state, game_state_lock, client_token):
         threading.Thread.__init__(self)
         self.comm = comm
@@ -73,7 +73,7 @@ class AlgorithmFast(threading.Thread):
 
             if self.game_state.slow_exists():
                 distance_to_target, position_of_target = self.game_state.get_closest_enemy_to_slow()
-                
+
                 # get the turret rotation
                 #target_point = self.game_state.get_target_point_for_tank_at_for_slow(position_of_target)
                 target_point = Point(position_of_target[0], position_of_target[1])
