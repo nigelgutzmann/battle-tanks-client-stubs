@@ -49,8 +49,7 @@ class AlgorithmAiming(threading.Thread):
 
                 # get the turret rotation
                 #target_point = self.game_state.get_target_point_for_tank_at_for_fast(position_of_target)
-                target_point = Point(position_of_target[0], position_of_target[1])
-                turret_angle = self.__get_target_angle(self.game_state.get_position_for_fast(), target_point)
+                turret_angle = self.__get_target_angle(self.game_state.get_position_for_fast_exact(), position_of_target)
                 change_turret_angle = turret_angle - self.game_state.get_fast_tank_turret_angle()
 
                 turret_rotate_command = commands.getTurretRotateCommand(
@@ -76,8 +75,7 @@ class AlgorithmAiming(threading.Thread):
 
                 # get the turret rotation
                 #target_point = self.game_state.get_target_point_for_tank_at_for_slow(position_of_target)
-                target_point = Point(position_of_target[0], position_of_target[1])
-                turret_angle = self.__get_target_angle(self.game_state.get_position_for_slow(), target_point)
+                turret_angle = self.__get_target_angle(self.game_state.get_position_for_slow_exact(), position_of_target)
                 change_turret_angle = turret_angle - self.game_state.get_slow_tank_turret_angle()
 
                 turret_rotate_command = commands.getTurretRotateCommand(
@@ -98,8 +96,8 @@ class AlgorithmAiming(threading.Thread):
                 self.send_command(tank_fire_command)
 
     def __get_target_angle(self, my_point, target):
-        delta_x = target.x - my_point.x
-        delta_y = target.y - my_point.y
+        delta_x = target[0] - my_point[0]
+        delta_y = target[1] - my_point[1]
         target_angle = math.atan2(delta_y, delta_x)
         if target_angle < 0:
             target_angle = target_angle + 2 * math.pi

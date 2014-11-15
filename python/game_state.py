@@ -137,6 +137,18 @@ class GameState(object):
     def get_route_for_fast(self, target):
         return self.__get_route_to(self.__me_fast, target)
 
+    def get_position_for_fast_exact(self):
+        if self.__me_fast is not None:
+            return self.__me_fast['position']
+        else:
+            return self.__get_center()
+
+    def get_position_for_slow_exact(self):
+        if self.__me_slow is not None:
+            return self.__me_slow['position']
+        else:
+            return self.__get_center()
+
     def get_position_for_slow(self):
         if self.__me_slow is not None:
             return Point(self.__me_slow['position'][0], self.__me_slow['position'][1])
