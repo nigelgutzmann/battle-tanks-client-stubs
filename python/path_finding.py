@@ -36,13 +36,10 @@ class PathFinder(object):
                 print "FOUND TARGET"
                 break
 
-            if len(came_from) > 500:
+            if len(came_from) > 2000:
                 interrupted = True
                 print "Didn't find anything but breaking anyways"
                 break
-
-            #if len(came_from) > 2000:
-            #    raise Exception('too many iterations')
 
             for next in self.get_neighbors(current):
                 new_cost = cost_so_far[current] + self.cost(current, next, moves_so_far[current])
@@ -74,9 +71,12 @@ class PathFinder(object):
         path.reverse()
 
         """for idx, node in enumerate(path):
-            print "Node: " + str(idx) + " (" + str(node.x) + ", " + str(node.y) + ")"
+            print "Node: " + str(idx) + node.toString()"""
 
-        print "target: (" + str(self.target.x) + ", " + str(self.target.y) + ")"""
+        print "Source: " + self.source.toString()
+        print "Target: " + self.target.toString()
+        if len(point) > 4:
+            print "Nextish point: " + path[3].toString()
 
         return path
 
