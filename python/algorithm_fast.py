@@ -53,7 +53,6 @@ class AlgorithmFast(threading.Thread):
                 #    next_point = route[3]
                 if len(route) > 3:
                     next_point = route[2]
-                    stop = True
                 elif len(route) > 2:
                     next_point = route[1]
 
