@@ -23,8 +23,8 @@ class AlgorithmFast(threading.Thread):
         print "STARTING run()"
 
         commands = Command(self.client_token)
-
-        while True:
+        stop = False
+        while not stop:
             if self.game_state is None:
                 print "GAME STATE IS NONE!!!!"
                 continue
@@ -88,13 +88,19 @@ class AlgorithmFast(threading.Thread):
                 # get the turret rotation
                 #target_point = self.game_state.get_target_point_for_tank_at_for_fast(position_of_target)
                 target_point = Point(position_of_target[0], position_of_target[1])
+                print "target_point = " + target_point.toString()
+
                 turret_angle = self.__get_target_angle(route[0], target_point)
+                print "turret_angle = " + str(turret_angle)
+
                 change_turret_angle = turret_angle - self.game_state.get_fast_tank_turret_angle()
+                print "change_turret_angle = " str(change_turret_angle)
 
                 turret_rotate_command = commands.getTurretRotateCommand(
                     self.game_state.get_fast_tank_id(),
                     change_turret_angle
                 )
+                print "SENDING TURRET ROTATE COMMAND: " + str(turret_rotate_command)
 
                 self.send_command(turret_rotate_command)
 
@@ -108,6 +114,7 @@ class AlgorithmFast(threading.Thread):
                         'FIRE',
                     )
                 self.send_command(tank_fire_command)
+                stop = True
 
     def __get_target_angle(self, my_point, target):
 

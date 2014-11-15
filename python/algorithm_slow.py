@@ -23,8 +23,8 @@ class AlgorithmSlow(threading.Thread):
         print "STARTING run()"
 
         commands = Command(self.client_token)
-
-        while True:
+        stop = False
+        while not stop:
             if self.game_state is None:
                 print "GAME STATE IS NONE!!!!"
                 continue
@@ -112,6 +112,7 @@ class AlgorithmSlow(threading.Thread):
                         "FIRE"
                     )
                 self.send_command(tank_fire_command)
+                stop=True
 
     def __get_target_angle(self, my_point, target):
 
