@@ -73,7 +73,7 @@ class AlgorithmAiming(threading.Thread):
                 tank_forward_command = commands.getMoveCommand(
                     self.game_state.get_fast_tank_id(),
                     10,
-                    direction="REV"
+                    direction="FWD"
                 )
                 #print "SENDING: " + str(tank_forward_command)
                 self.send_command(tank_forward_command)
@@ -82,7 +82,7 @@ class AlgorithmAiming(threading.Thread):
                 tank_forward_command = commands.getMoveCommand(
                     self.game_state.get_slow_tank_id(),
                     10,
-                    direction="REV"
+                    direction="FWD"
                 )
                 #print "SENDING: " + str(tank_forward_command)
                 self.send_command(tank_forward_command)
