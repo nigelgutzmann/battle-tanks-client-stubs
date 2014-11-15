@@ -70,8 +70,8 @@ class PathFinder(object):
 
         path.reverse()
 
-        for idx, node in enumerate(path):
-            print "Node: " + str(idx) + node.toString()
+        """for idx, node in enumerate(path):
+            print "Node: " + str(idx) + node.toString()"""
 
         print "Source: " + self.source.toString()
         print "Target: " + self.target.toString()
