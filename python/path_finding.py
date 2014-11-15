@@ -75,7 +75,7 @@ class PathFinder(object):
 
         print "Source: " + self.source.toString()
         print "Target: " + self.target.toString()
-        if len(point) > 4:
+        if len(path) > 4:
             print "Nextish point: " + path[3].toString()
 
         return path
