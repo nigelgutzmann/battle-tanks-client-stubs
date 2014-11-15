@@ -30,13 +30,6 @@ class AlgorithmSlow(threading.Thread):
                 continue
 
             self.copy_real_game_state()
-            # stop firing asap if possible:
-            if self.game_state.slow_exists() and not self.game_state.enemies_exist():
-                stop_command = commands.getStopCommand(
-                    self.game_state.get_slow_tank_id(),
-                    'FIRE',
-                )
-                self.send_command(stop_command)
 
             # work on the slow tank
             # find the closest enemy
@@ -89,29 +82,6 @@ class AlgorithmSlow(threading.Thread):
                     )
                     #print "SENDING: " + str(tank_forward_command)
                     self.send_command(tank_forward_command)
-
-                # get the turret rotation
-                #target_point = self.game_state.get_target_point_for_tank_at_for_slow(position_of_target)
-                target_point = Point(position_of_target[0], position_of_target[1])
-                turret_angle = self.__get_target_angle(route[0], target_point)
-                change_turret_angle = turret_angle - self.game_state.get_slow_tank_turret_angle()
-
-                turret_rotate_command = commands.getTurretRotateCommand(
-                    self.game_state.get_slow_tank_id(),
-                    change_turret_angle
-                )
-
-                self.send_command(turret_rotate_command)
-
-                # send the fire command
-                if self.game_state.enemies_exist() and change_turret_angle < math.pi / 6:
-                    tank_fire_command = commands.getFireCommand(self.game_state.get_slow_tank_id())
-                else:
-                    tank_fire_command = commands.getStopCommand(
-                        self.game_state.get_slow_tank_id(),
-                        "FIRE"
-                    )
-                self.send_command(tank_fire_command)
 
     def __get_target_angle(self, my_point, target):
 

@@ -4,6 +4,7 @@ from publish_decoder import PublishDecoder
 from game_state import GameState
 from algorithm_fast import AlgorithmFast
 from algorithm_slow import AlgorithmSlow
+from algorithm_aiming import AlgorithmAiming
 import threading
 
 class Player(object):
@@ -18,6 +19,7 @@ class Player(object):
         self.client_token = client_token
         self.algorithm_slow = AlgorithmSlow(self.comm, self.comm_lock, self.game_state, self.game_state_lock, self.client_token)
         self.algorithm_fast = AlgorithmFast(self.comm, self.comm_lock, self.game_state, self.game_state_lock, self.client_token)
+        self.algorithm_aiming = AlgorithmAiming(self.comm, self.comm_lock, self.game_state, self.game_state_lock, self.client_token)
 
     def play_game(self):
         print "STARTING play_game"
@@ -26,6 +28,8 @@ class Player(object):
         self.algorithm_slow.start()
         self.algorithm_fast.daemon = True
         self.algorithm_fast.start()
+        self.algorithm_aiming.daemon = True
+        self.algorithm_aiming.start()
 
         while not stop:
             # get a message

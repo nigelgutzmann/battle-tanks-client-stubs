@@ -30,12 +30,6 @@ class AlgorithmFast(threading.Thread):
                 continue
 
             self.copy_real_game_state()
-            if self.game_state.fast_exists() and not self.game_state.enemies_exist():
-                stop_command = commands.getStopCommand(
-                    self.game_state.get_fast_tank_id(),
-                    'FIRE',
-                )
-                self.send_command(stop_command)
 
             if self.game_state.fast_exists():
                 distance_to_target, position_of_target = self.game_state.get_closest_enemy_to_fast()
@@ -84,36 +78,6 @@ class AlgorithmFast(threading.Thread):
                     )
                     #print "SENDING: " + str(tank_forward_command)
                     self.send_command(tank_forward_command)
-
-                # get the turret rotation
-                #target_point = self.game_state.get_target_point_for_tank_at_for_fast(position_of_target)
-                target_point = Point(position_of_target[0], position_of_target[1])
-                print "target_point = " + target_point.toString()
-
-                turret_angle = self.__get_target_angle(route[0], target_point)
-                print "turret_angle = " + str(turret_angle)
-
-                change_turret_angle = turret_angle - self.game_state.get_fast_tank_turret_angle()
-                print "change_turret_angle = " + str(change_turret_angle)
-
-                turret_rotate_command = commands.getTurretRotateCommand(
-                    self.game_state.get_fast_tank_id(),
-                    change_turret_angle
-                )
-                print "SENDING TURRET ROTATE COMMAND: " + str(turret_rotate_command)
-
-                self.send_command(turret_rotate_command)
-
-                # send the fire command
-                if self.game_state.enemies_exist() and change_turret_angle < math.pi / 6:
-                    tank_fire_command = commands.getFireCommand(self.game_state.get_fast_tank_id())
-                else:
-                    # stop the fire command!!!
-                    tank_fire_command = commands.getStopCommand(
-                        self.game_state.get_fast_tank_id(),
-                        'FIRE',
-                    )
-                self.send_command(tank_fire_command)
 
     def __get_target_angle(self, my_point, target):
         delta_x = target.x - my_point.x
