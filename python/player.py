@@ -30,7 +30,7 @@ class Player(object):
         while not stop:
             # get a message
             message = self.get_message()
-
+            print message
             # decode it
             self.game_state_lock.acquire()
             decoded = self.pub_decoder.decode(message, self.game_state)
