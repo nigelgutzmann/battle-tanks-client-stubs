@@ -95,5 +95,5 @@ class AlgorithmSlow(threading.Thread):
 
     def copy_real_game_state(self):
         self.game_state_lock.acquire()
-        self.game_state = copy.deepcopy(self.real_game_state)
+        self.game_state = self.real_game_state.copy_gs()
         self.game_state_lock.release()
