@@ -36,7 +36,7 @@ class PathFinder(object):
                 print "FOUND TARGET"
                 break
 
-            if len(came_from) > 400:
+            if len(came_from) > 1000:
                 interrupted = True
                 print "Didn't find anything but breaking anyways"
                 break
