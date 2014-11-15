@@ -83,19 +83,19 @@ class AlgorithmAiming(threading.Thread):
             if self.game_state.slow_exists():
                 print "slow aim start"
                 distance_to_target, position_of_target = self.game_state.get_closest_enemy_to_slow()
-
+                print "got get_closest_enemy_to_slow"
                 # get the turret rotation
                 #target_point = self.game_state.get_target_point_for_tank_at_for_slow(position_of_target)
                 turret_angle = self.__get_target_angle(self.game_state.get_position_for_slow_exact(), position_of_target)
                 change_turret_angle = turret_angle - self.game_state.get_slow_tank_turret_angle()
-
+                print "calculated the change_turret_angle"
                 turret_rotate_command = commands.getTurretRotateCommand(
                     self.game_state.get_slow_tank_id(),
                     change_turret_angle
                 )
 
                 self.send_command(turret_rotate_command)
-
+                print "send turret command"
                 # send the fire command
                 if self.game_state.enemies_exist() and change_turret_angle < math.pi / 6:
                     tank_fire_command = commands.getFireCommand(self.game_state.get_slow_tank_id())
@@ -105,7 +105,7 @@ class AlgorithmAiming(threading.Thread):
                         "FIRE"
                     )
                 self.send_command(tank_fire_command)
-
+                print "sent fire command"
                 tank_forward_command = commands.getMoveCommand(
                     self.game_state.get_slow_tank_id(),
                     10,
