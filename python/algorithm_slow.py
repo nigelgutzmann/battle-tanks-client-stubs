@@ -112,7 +112,6 @@ class AlgorithmSlow(threading.Thread):
                         "FIRE"
                     )
                 self.send_command(tank_fire_command)
-                stop=True
 
     def __get_target_angle(self, my_point, target):
 
