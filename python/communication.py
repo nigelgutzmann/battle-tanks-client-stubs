@@ -37,9 +37,11 @@ class Communication(object):
         if no 'key' specified, returns the entire reply
         """
         reply = None
-        self.cmd_socket.send(message)
-        reply = self.receive(Communication.Origin.CommandSocket)
-
+        try:
+            self.cmd_socket.send(message, zmq.NOBLOCK)
+            reply = self.receive(Communication.Origin.CommandSocket, zmq.NOBLOCK)
+        except:
+            return {}
         if key is None:
             return reply
         else:
