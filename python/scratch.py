@@ -12,9 +12,12 @@ pd.decode(json.dumps(message), gs)
 # enemy tanks are at: [95.0, 68.0] and [105.0, 57.0]
 ef = [95.0, 68.0]
 es = [105.0, 57.0]
-route = gs.get_route_for_fast(ef)
+route = gs.get_route_for_fast(es)
 
 if len(route) > 3:
     next_point = route[2]
 elif len(route) > 2:
     next_point = route[1]
+
+ignore, position = gs.get_closest_enemy_to_fast()
+gs.get_target_point_for_tank_at_for_fast(position)
