@@ -20,7 +20,7 @@ class AlgorithmAiming(threading.Thread):
         '''
         here's what really matters...
         '''
-        print "STARTING run()"
+        print "STARTING run() - AlgorithmAiming"
 
         commands = Command(self.client_token)
         stop = False
@@ -50,7 +50,7 @@ class AlgorithmAiming(threading.Thread):
                 # get the turret rotation
                 #target_point = self.game_state.get_target_point_for_tank_at_for_fast(position_of_target)
                 target_point = Point(position_of_target[0], position_of_target[1])
-                turret_angle = self.__get_target_angle(route[0], target_point)
+                turret_angle = self.__get_target_angle(self.game_state.get_position_for_fast(), target_point)
                 change_turret_angle = turret_angle - self.game_state.get_fast_tank_turret_angle()
 
                 turret_rotate_command = commands.getTurretRotateCommand(
@@ -77,7 +77,7 @@ class AlgorithmAiming(threading.Thread):
                 # get the turret rotation
                 #target_point = self.game_state.get_target_point_for_tank_at_for_slow(position_of_target)
                 target_point = Point(position_of_target[0], position_of_target[1])
-                turret_angle = self.__get_target_angle(route[0], target_point)
+                turret_angle = self.__get_target_angle(self.game_state.get_position_for_slow(), target_point)
                 change_turret_angle = turret_angle - self.game_state.get_slow_tank_turret_angle()
 
                 turret_rotate_command = commands.getTurretRotateCommand(
