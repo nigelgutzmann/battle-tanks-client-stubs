@@ -133,6 +133,6 @@ class AlgorithmAiming(threading.Thread):
     def copy_real_game_state(self):
         print "copy started"
         self.game_state_lock.acquire()
-        self.game_state = copy.copy(self.real_game_state)
+        self.game_state = self.real_game_state.copy_gs()
         self.game_state_lock.release()
         print "copy finished"

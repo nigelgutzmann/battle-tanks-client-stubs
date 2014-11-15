@@ -14,16 +14,37 @@ class GameState(object):
     If a point is a 1, it is impassible ground (tanks cannot drive here)
     If a point is a 2, it is solid (tanks and bullets cannot go through here)
     '''
-    def __init__(self):
-        self.__map = []
-        self.__enemy_slow = None
-        self.__enemy_fast = None
-        self.__me_slow = None
-        self.__me_fast = None
-        self.__enemy_slow_old_position = None
-        self.__enemy_fast_old_position = None
+    def __init__(self, _map=[], enemy_slow=None, enemy_fast=None, me_slow=None, me_fast=None, enemy_slow_old_position=None, enemy_fast_old_position=None):
+        self.__map = _map
+        self.__enemy_slow = enemy_slow
+        self.__enemy_fast = enemy_fast
+        self.__me_slow = me_slow
+        self.__me_fast = me_fast
+        self.__enemy_slow_old_position = enemy_slow_old_position
+        self.__enemy_fast_old_position = enemy_fast_old_position
 
     # FUNCTIONS TO SET UP THE MAP
+    def copy_gs(self):
+        new_map = []
+        for row in self.__map:
+            new_map.append(row[:])
+        new_enemy_slow = self.__enemy_slow.copy()
+        new_enemy_fast = self.__enemy_fast.copy()
+        new_me_slow = self.__me_slow.copy()
+        new_me_fast = self.__me_fast.copy()
+        new_enemy_slow_old_position = self.__enemy_slow_old_position[:]
+        new_enemy_fast_old_position = self.__enemy_fast_old_position[:]
+
+        return GameState(
+            _map=new_map,
+            enemy_slow=new_enemy_slow,
+            enemy_fast=new_enemy_fast,
+            me_slow=new_me_slow,
+            me_fast=new_me_fast,
+            enemy_slow_old_position=new_enemy_slow_old_position,
+            enemy_fast_old_position=new_enemy_fast_old_position
+        )
+
     def boundaries_unset(self):
         return len(self.__map) == 0
 
