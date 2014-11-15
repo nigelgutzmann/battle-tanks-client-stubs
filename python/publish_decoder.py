@@ -38,11 +38,13 @@ class PublishDecoder(object):
 
         elif message_data['comm_type'] == 'GAME_END':
             #print "GAME_END received!"
+            print message_data
             game_state.reset()
             return "GAME_END"
 
         elif message_data['comm_type'] == "MATCH_END":
             #print "MATCH_END received!"
+            print message_data
             game_state.reset()
             return "MATCH_END"
 

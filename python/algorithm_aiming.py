@@ -108,7 +108,6 @@ class AlgorithmAiming(threading.Thread):
         return target_angle
 
     def send_command(self, command):
-        print "--------------------------------->>>>>>>SENDING COMMAND FROM AIMING ALGORITHM!!!"
         self.comm_lock.acquire()
         self.comm.send(command)
         self.comm_lock.release()

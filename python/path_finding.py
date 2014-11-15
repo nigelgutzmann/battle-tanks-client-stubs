@@ -33,12 +33,12 @@ class PathFinder(object):
             current = frontier.get()[1]
 
             if abs(current.x - self.target.x) == 0 and abs(current.y - self.target.y) == 0:
-                print "FOUND TARGET"
+                #print "FOUND TARGET"
                 break
 
             if len(came_from) > 1000:
                 interrupted = True
-                print "Didn't find anything but breaking anyways"
+                #print "Didn't find anything but breaking anyways"
                 break
 
             for next in self.get_neighbors(current):
@@ -52,8 +52,8 @@ class PathFinder(object):
                     came_from[next] = current
 
         if frontier.empty() or interrupted:
-            print "SCANNED EVERYWHERE"
-            print "TARGET WASSSSSSSSS:::: ------>" + self.target.toString()
+            #print "SCANNED EVERYWHERE"
+            #print "TARGET WASSSSSSSSS:::: ------>" + self.target.toString()
             if abs(current.x - self.target.x) != 0 or abs(current.y - self.target.y) != 0:
                 # we must be on the map with all the water in the middle and there is no enemy on our side
                 # go to random spots!
@@ -63,7 +63,7 @@ class PathFinder(object):
             current = self.target
 
         path = [current]
-        print "NUMBER OF POINTS VISITED: " + str(len(came_from))
+        #print "NUMBER OF POINTS VISITED: " + str(len(came_from))
         while current != self.source:
             current = came_from[current]
             path.append(current)
@@ -73,10 +73,10 @@ class PathFinder(object):
         """for idx, node in enumerate(path):
             print "Node: " + str(idx) + node.toString()"""
 
-        print "Source: " + self.source.toString()
-        print "Target: " + self.target.toString()
-        if len(path) > 4:
-            print "Nextish point: " + path[3].toString()
+        #print "Source: " + self.source.toString()
+        #print "Target: " + self.target.toString()
+        #if len(path) > 4:
+        #    print "Nextish point: " + path[3].toString()
 
         return path
 
