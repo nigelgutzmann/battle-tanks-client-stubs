@@ -17,15 +17,15 @@ class Player(object):
         self.game_state_lock = threading.Lock()
         self.client_token = client_token
         self.algorithm_slow = AlgorithmSlow(self.comm, self.comm_lock, self.game_state, self.game_state_lock, self.client_token)
-        #self.algorithm_fast = AlgorithmFast(self.comm, self.comm_lock, self.game_state, self.game_state_lock, self.client_token)
+        self.algorithm_fast = AlgorithmFast(self.comm, self.comm_lock, self.game_state, self.game_state_lock, self.client_token)
 
     def play_game(self):
         print "STARTING play_game"
         stop = False
         self.algorithm_slow.daemon = True
         self.algorithm_slow.start()
-        #self.algorithm_fast.daemon = True
-        #self.algorithm_fast.start()
+        self.algorithm_fast.daemon = True
+        self.algorithm_fast.start()
 
         while not stop:
             # get a message
