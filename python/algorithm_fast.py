@@ -94,7 +94,7 @@ class AlgorithmFast(threading.Thread):
                 print "turret_angle = " + str(turret_angle)
 
                 change_turret_angle = turret_angle - self.game_state.get_fast_tank_turret_angle()
-                print "change_turret_angle = " str(change_turret_angle)
+                print "change_turret_angle = " + str(change_turret_angle)
 
                 turret_rotate_command = commands.getTurretRotateCommand(
                     self.game_state.get_fast_tank_id(),
